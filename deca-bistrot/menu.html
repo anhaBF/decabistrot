@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu – Deca Bistrot · Palermo</title>
+<meta name="description" content="Il menu di Deca Bistrot: cucina siciliana, cocktail e vini. Piazza Giovanni Meli, Palermo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS – light warm theme
+   ============================================================ */
+:root {
+  --bg:        #fdf8f2;
+  --bg2:       #f5ede0;
+  --bg3:       #ede0ce;
+  --card:      #ffffff;
+  --gold:      #9b6e2a;
+  --gold-dark: #7a5218;
+  --text:      #1c1208;
+  --text-muted:#7a5c32;
+  --text-dim:  #b08050;
+  --border:    #e0ccb0;
+  --border-2:  #c8aa82;
+
+  --font-d: 'Playfair Display', Georgia, serif;
+  --font-b: 'Karla', system-ui, sans-serif;
+
+  --r:    8px;
+  --r-lg: 14px;
+  --t:    180ms ease;
+  --mw:   860px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-b);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.menu-header {
+  background: var(--card);
+  border-bottom: 2px solid var(--border);
+  padding: 28px 24px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 16px rgba(0,0,0,.06);
+}
+.menu-header-inner {
+  max-width: var(--mw);
+  margin: 0 auto;
+}
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.brand-name {
+  font-family: var(--font-d);
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -.01em;
+}
+.brand-name em { color: var(--gold); font-style: italic; }
+.brand-tagline {
+  font-size: .78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.brand-sep {
+  width: 1px; height: 18px;
+  background: var(--border-2);
+  display: inline-block;
+  margin: 0 4px;
+  vertical-align: middle;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab-btn {
+  flex: 0 0 auto;
+  padding: 11px 22px;
+  font-family: var(--font-b);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: color var(--t), border-color var(--t);
+  white-space: nowrap;
+}
+.tab-btn:hover  { color: var(--gold); }
+.tab-btn.active {
+  color: var(--gold-dark);
+  border-bottom-color: var(--gold);
+}
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+main {
+  max-width: var(--mw);
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+/* Category header */
+.cat-header {
+  padding: 40px 0 24px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.cat-label {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.cat-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 700;
+  color: var(--text);
+}
+.cat-title em { font-style: italic; color: var(--gold-dark); }
+
+/* Menu items */
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.mi {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto auto;
+  gap: 3px 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.mi:last-child { border-bottom: none; }
+.mi-name {
+  font-family: var(--font-d);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+  grid-column: 1;
+  grid-row: 1;
+}
+.mi-featured {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-left: 10px;
+  vertical-align: middle;
+}
+.mi-desc {
+  font-size: .9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  grid-column: 1;
+  grid-row: 2;
+}
+.mi-note {
+  grid-column: 1;
+  grid-row: 3;
+  font-size: .75rem;
+  font-style: italic;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+.mi-price {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: center;
+  font-family: var(--font-d);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--gold-dark);
+  white-space: nowrap;
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.empty {
+  padding: 48px;
+  text-align: center;
+  color: var(--text-dim);
+  font-style: italic;
+  font-size: .95rem;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.menu-footer {
+  background: var(--text);
+  color: rgba(240,230,216,.7);
+  text-align: center;
+  padding: 28px 24px;
+  font-size: .82rem;
+  line-height: 1.8;
+}
+.menu-footer strong { color: #f5e6ce; }
+.menu-footer a { color: #c49558; text-decoration: underline; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 480px) {
+  .brand { flex-wrap: wrap; gap: 6px; }
+  .brand-sep { display: none; }
+  .brand-tagline { width: 100%; }
+  .mi { grid-template-columns: 1fr auto; }
+  .mi-price { font-size: 1rem; }
+}
+
+@media print {
+  .menu-header { position: static; box-shadow: none; }
+  .tabs { border-bottom: 1px solid #ccc; }
+  .tab-btn { display: none; }
+  .tab-btn.active { display: block; }
+  .tab-panel { display: block !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="menu-header">
+  <div class="menu-header-inner">
+    <div class="brand">
+      <span class="brand-name">Deca <em>Bistrot</em></span>
+      <span class="brand-sep" aria-hidden="true"></span>
+      <span class="brand-tagline">Piazza Giovanni Meli · Palermo</span>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Categorie menu">
+      <button class="tab-btn active" data-tab="antipasti"  role="tab" aria-selected="true"  aria-controls="tab-antipasti">Antipasti</button>
+      <button class="tab-btn"        data-tab="primi"      role="tab" aria-selected="false" aria-controls="tab-primi">Primi</button>
+      <button class="tab-btn"        data-tab="secondi"    role="tab" aria-selected="false" aria-controls="tab-secondi">Secondi</button>
+      <button class="tab-btn"        data-tab="cocktails"  role="tab" aria-selected="false" aria-controls="tab-cocktails">Cocktails</button>
+      <button class="tab-btn"        data-tab="vini"       role="tab" aria-selected="false" aria-controls="tab-vini">Vini</button>
+      <button class="tab-btn"        data-tab="drinks"     role="tab" aria-selected="false" aria-controls="tab-drinks">Drinks</button>
+    </nav>
+  </div>
+</header>
+
+<main id="main"></main>
+
+<footer class="menu-footer">
+  <strong>Deca Bistrot</strong> · Piazza Giovanni Meli, Palermo<br>
+  Aperto tutti i giorni <strong>11:30 – 02:00</strong> · Tel <a href="tel:+393278976765">+39 327 897 6765</a>
+</footer>
+
+<script>
+'use strict';
+
+const CAT_LABELS = {
+  antipasti: 'Antipasti',
+  primi:     'Primi Piatti',
+  secondi:   'Secondi',
+  cocktails: 'Cocktails',
+  vini:      'Vini',
+  drinks:    'Drinks & Bevande',
+};
+const CAT_SUBS = {
+  antipasti: 'Per cominciare',
+  primi:     'Pasta e risotti',
+  secondi:   'Pesce del giorno',
+  cocktails: 'Bar di territorio',
+  vini:      'Cantina siciliana',
+  drinks:    'Soft & birre',
+};
+
+const DEF = {
+  antipasti:[
+    {id:'a1',name:'Polpo',                     desc:'Polpo in doppia cottura su tortino di patate e cardamomo',                                          price:9,  featured:true},
+    {id:'a2',name:'Tris di bruschette',         desc:'Tartare di gambero con pere e mandorle, tartare di scampo su caprino al limone, tartare di salmone su yogurt', price:18, featured:true},
+    {id:'a3',name:'Arancinette',                desc:'Con pesce spada, pomodorino e menta su letto di salsa di melanzana',                               price:9,  featured:false},
+    {id:'a4',name:'Tartare di anguria',         desc:'Pomodorini rossi, mozzarella e pesto di pistacchio',                                               price:9,  featured:false},
+    {id:'a5',name:'Cous cous a modo nostro',    desc:'Con gambero, cozze, vongole e calamari',                                                           price:13, featured:false},
+    {id:'a6',name:'Tagliere salumi e formaggi', desc:'Selezione di salumi e formaggi con confettura del giorno',                                         price:16, featured:false},
+    {id:'a7',name:'Caponata',                   desc:'Classica caponata siciliana di melanzane',                                                          price:6,  featured:false},
+    {id:'a8',name:'Piatto aperitivo',           desc:'Paninetti con panelle e crocchè, mix affettati, crocchette di latte, bocconcini di pollo, verdurine e mozzarelline', price:20, featured:false},
+  ],
+  primi:[
+    {id:'p1',name:'Spaghetto vongole e cozze',    desc:'Con asparagi e crumble di amaretti',                                             price:17, featured:true},
+    {id:'p2',name:'Busiate pesce spada e gamberi', desc:'Pesce spada, gamberi, pomodorini, polvere di prezzemolo e pesto di pistacchio', price:16, featured:true},
+    {id:'p3',name:'Pacchero deca',                 desc:'Guanciale, salsiccia, burrata, pesto di pistacchio e pomodorino',               price:14, featured:true},
+    {id:'p4',name:'Spaghetti aglio e olio',        desc:'Con tartare di gambero rosso',                                                  price:16, featured:false},
+    {id:'p5',name:'Paccheri alla norma',            desc:'Salsa di pomodoro, melanzane fritte e ricotta salata',                         price:14, featured:false},
+    {id:'p6',name:'Nerano',                         desc:'Pasta con zucchine fritte e fonduta di provola',                               price:12, featured:false},
+    {id:'p7',name:'Carbonara',                      desc:'Pasta alla carbonara classica',                                                price:13, featured:false},
+  ],
+  secondi:[
+    {id:'s1',name:'Ombrina',             desc:'Con salsa aioli e ananas',                                             price:20, featured:true},
+    {id:'s2',name:'Tagliata di angus',   desc:'Con rucola, grana e pomodoro',                                        price:18, featured:true},
+    {id:'s3',name:'Frittura di calamaro',desc:'Calamari fritti croccanti',                                           price:18, featured:false},
+    {id:'s4',name:'Salmone',             desc:'Con salsa alla senape, aceto balsamico e miele',                      price:16, featured:false},
+    {id:'s5',name:'Orata',               desc:'Con salsa di piselli, caprino al limone e gocce di nero di seppia',  price:14, featured:false},
+  ],
+  cocktails:[
+    {id:'c1',name:'Negroni del professore', desc:'Cocktail signature della casa',                     price:12, featured:true},
+    {id:'c2',name:'Pornstar martini',       desc:'Vodka, maracuja, Passoa, lime e prosecco',          price:9,  featured:true},
+    {id:'c3',name:'Old fashioned',          desc:'Whiskey, angostura, zucchero di canna',             price:8,  featured:false},
+    {id:'c4',name:'Whiskey sour',           desc:'Whiskey, succo di limone, albume, angostura',       price:8,  featured:false},
+    {id:'c5',name:'Aperol spritz',          desc:'Aperol, prosecco, soda e arancia',                  price:7,  featured:false},
+    {id:'c6',name:'Hugo spritz',            desc:'Prosecco, sciroppo di sambuco, menta, soda e lime', price:8,  featured:false},
+    {id:'c7',name:'Limoncello spritz',      desc:'Limoncello, prosecco e soda',                       price:9,  featured:false},
+    {id:'c8',name:'Mojito cubano',          desc:'Rum bianco, lime, menta, zucchero e soda',          price:7,  featured:false},
+    {id:'c9',name:'Campari negroni',        desc:'Gin, Campari, vermouth rosso',                      price:10, featured:false},
+    {id:'c10',name:'Piña colada',           desc:'Rum, latte di cocco, ananas',                       price:9,  featured:false},
+    {id:'c11',name:'Daiquiri',              desc:'Rum, succo di lime, zucchero',                      price:7,  featured:false},
+    {id:'c12',name:'Margarita',             desc:'Tequila, Cointreau, lime',                          price:7,  featured:false},
+  ],
+  vini:[
+    {id:'v1',name:'Vino bianco al calice',    desc:'Grillo, Cataratto, Etna Bianco — selezione del giorno', price:6,  featured:false, note:'al calice'},
+    {id:'v2',name:'Vino rosso al calice',     desc:"Nero d'Avola, Perricone o Etna Rosso",                 price:6,  featured:false, note:'al calice'},
+    {id:'v3',name:'Prosecco al calice',       desc:'Bollicine italiane',                                    price:6,  featured:false, note:'al calice'},
+    {id:'v4',name:'Champagne al calice',      desc:'Selezione premium (min. 2 calici)',                     price:10, featured:false, note:'al calice'},
+    {id:'v5',name:'Vini bianchi in bottiglia',desc:'Grillo, Cataratto, Etna Bianco, Souvignon e altri',    price:20, featured:false, note:'bottiglia'},
+    {id:'v6',name:'Vini rossi in bottiglia',  desc:"Nero d'Avola, Etna Rosso, Barbera e altri",            price:20, featured:false, note:'bottiglia'},
+    {id:'v7',name:'Bollicine in bottiglia',   desc:'Prosecco, Franciacorta, Champagne, Etna Metodo Classico', price:20, featured:false, note:'bottiglia'},
+  ],
+  drinks:[
+    {id:'d1',name:'Birra Messina',                  desc:'Bottiglia 33cl',                           price:4,   featured:false},
+    {id:'d2',name:"Birra Tennent's",                desc:'Bottiglia 33cl',                           price:4,   featured:false},
+    {id:'d3',name:'Birra Guinness',                 desc:'Bottiglia',                                price:5,   featured:false},
+    {id:'d4',name:'Birra alla spina',               desc:'Pilsner, Weiss o Sixtus · 0.30L',         price:4,   featured:false},
+    {id:'d5',name:'Coca-Cola',                      desc:'33cl',                                     price:2.5, featured:false},
+    {id:'d6',name:'Schweppes tonica',               desc:'',                                         price:2.5, featured:false},
+    {id:'d7',name:'Gazzosa / Aranciata bio Tomarchio', desc:'Produzione locale siciliana',           price:3,   featured:false},
+    {id:'d8',name:'Chinotto',                       desc:'',                                         price:3,   featured:false},
+    {id:'d9',name:'Acqua naturale',                 desc:'0.5L',                                     price:2,   featured:false},
+    {id:'d10',name:'Acqua frizzante',               desc:'0.5L',                                     price:2,   featured:false},
+    {id:'d11',name:'Fever-tree',                    desc:'Indian tonic o Mediterranean',             price:3,   featured:false},
+    {id:'d12',name:'Ginger beer / ale',             desc:'',                                         price:3,   featured:false},
+  ],
+};
+
+// Try to load updated menu from localStorage (shared with main site on same origin)
+let menu;
+try { menu = JSON.parse(localStorage.getItem('deca_menu')) || structuredClone(DEF); }
+catch { menu = structuredClone(DEF); }
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function starSvg(){ return '<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 5.18L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'; }
+
+function buildAll(){
+  const tabs = ['antipasti','primi','secondi','cocktails','vini','drinks'];
+  const main = document.getElementById('main');
+  main.innerHTML = tabs.map(t=>{
+    const items = menu[t] || [];
+    return `
+    <div class="tab-panel${t==='antipasti'?' active':''}" id="tab-${t}" role="tabpanel" aria-labelledby="btn-${t}">
+      <div class="cat-header">
+        <div class="cat-label">${esc(CAT_SUBS[t]||'')}</div>
+        <h1 class="cat-title">${esc(CAT_LABELS[t]||t)}</h1>
+      </div>
+      <div class="menu-list">
+        ${items.length ? items.map(i=>`
+          <div class="mi">
+            <div class="mi-name">
+              ${esc(i.name)}
+              ${i.featured?`<span class="mi-featured">${starSvg()} Consigliato</span>`:''}
+            </div>
+            <div class="mi-price">€${esc(i.price)}</div>
+            <div class="mi-desc">${esc(i.desc)}</div>
+            ${i.note?`<div class="mi-note">${esc(i.note)}</div>`:''}
+          </div>`).join('')
+        : `<div class="empty">Nessun piatto in questa categoria.</div>`}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+buildAll();
+
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.id = 'btn-' + btn.dataset.tab;
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>{ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+    const panel = document.getElementById('tab-' + btn.dataset.tab);
+    if(panel){ panel.classList.add('active'); panel.scrollIntoView({behavior:'smooth',block:'start'}); }
+  });
+});
+
+// If ?tab=primi in URL, switch to that tab on load
+const urlTab = new URLSearchParams(location.search).get('tab');
+if(urlTab){ const b = document.querySelector(`.tab-btn[data-tab="${urlTab}"]`); if(b) b.click(); }
+</script>
+</body>
+</html>
