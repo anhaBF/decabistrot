@@ -1,0 +1,2272 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deca Bistrot – Cucina, Cocktail & Convivialità · Palermo</title>
+<meta name="description" content="Deca Bistrot a Palermo. Cucina siciliana di mare, cocktail bar e convivialità a Piazza Giovanni Meli. Aperto dalle 11:30 alle 02:00.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root {
+  --bg:          #FAF3E8;
+  --bg2:         #F0E6D3;
+  --bg3:         #E8D5B7;
+  --bg4:         #DEC9A0;
+  --card:        #FFFFFF;
+
+  --gold:        #82582d;
+  --gold-bright: #9b6e2a;
+  --gold-pale:   #fdf8f2;
+  --gold-dim:    #A67840;
+
+  --text:        #3D2B1A;
+  --text-muted:  #7A5430;
+  --text-dim:    #B08050;
+  --white:       #ffffff;
+
+  --border:      #E8D5B7;
+  --border-2:    #D4BA90;
+
+  --font-d: 'Playfair Display', Georgia, serif;
+  --font-b: 'Karla', system-ui, sans-serif;
+
+  --r:    8px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+
+  --sh:    0 4px 24px rgba(0,0,0,.4);
+  --sh-lg: 0 12px 48px rgba(0,0,0,.6);
+
+  --t:     200ms ease;
+  --t-md:  350ms ease;
+
+  --mw: 1160px;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-b); background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.65; }
+a   { color: inherit; text-decoration: none; }
+ul  { list-style: none; }
+img { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, select, textarea { font-family: inherit; }
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+h1,h2,h3 { font-family: var(--font-d); line-height: 1.15; }
+h1 { font-size: clamp(2.75rem, 6vw, 5rem); }
+h2 { font-size: clamp(2rem,   4vw, 3rem);  }
+h3 { font-size: clamp(1.1rem, 2vw, 1.35rem); }
+
+.label {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.title-dark  { color: var(--bg); }
+.title-light { color: var(--text); }
+.muted       { color: var(--text-muted); }
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.wrap   { max-width: var(--mw); margin: 0 auto; padding: 0 24px; }
+section { padding: 96px 24px; }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+.rise {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.rise.in { opacity: 1; transform: none; }
+.rise.d1 { transition-delay: .1s; }
+.rise.d2 { transition-delay: .2s; }
+.rise.d3 { transition-delay: .3s; }
+.rise.d4 { transition-delay: .4s; }
+@media (prefers-reduced-motion: reduce) {
+  .rise { opacity: 1; transform: none; transition: none; }
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(var(--rot,0deg)); }
+  50%      { transform: translateY(-10px) rotate(var(--rot,0deg)); }
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: .6; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+@keyframes grain {
+  0%,100% { transform: translate(0,0); }
+  10%      { transform: translate(-1%,-2%); }
+  30%      { transform: translate(2%,1%); }
+  60%      { transform: translate(-1%,2%); }
+  80%      { transform: translate(1%,-1%); }
+}
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+#nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  padding: 20px 28px;
+  transition: background var(--t-md), padding var(--t-md), box-shadow var(--t-md);
+}
+#nav.stuck {
+  background: rgba(250,243,232,.97);
+  backdrop-filter: blur(16px);
+  padding: 12px 28px;
+  box-shadow: 0 1px 0 var(--border);
+}
+.nav-row {
+  max-width: var(--mw);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-brand-logo {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  transition: transform var(--t);
+}
+.nav-brand:hover .nav-brand-logo { transform: rotate(8deg) scale(1.05); }
+.nav-brand-text {
+  font-family: var(--font-d);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: .02em;
+  line-height: 1;
+}
+.nav-brand-text em { color: var(--gold); font-style: normal; }
+.nav-brand-sub {
+  font-family: var(--font-b);
+  font-size: .62rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Logo in sezioni */
+.section-logo {
+  display: block;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 28px;
+  filter: drop-shadow(0 4px 12px rgba(130,88,45,.15));
+  transition: transform var(--t-md);
+}
+.section-logo:hover { transform: scale(1.04) rotate(3deg); }
+
+.contatti-logo {
+  display: block;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 2px 8px rgba(130,88,45,.12));
+}
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links a {
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color var(--t);
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-pill {
+  background: var(--gold) !important;
+  color: #fff !important;
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-weight: 700 !important;
+  letter-spacing: .06em !important;
+  transition: background var(--t) !important;
+}
+.nav-pill:hover { background: var(--gold-bright) !important; color: #fff !important; }
+.burger { display:none; flex-direction:column; gap:5px; padding:6px; cursor:pointer; }
+.burger span { display:block; width:22px; height:2px; background:var(--text); border-radius:2px; transition:var(--t); }
+
+/* mobile menu */
+.mob-overlay {
+  display:none; position:fixed; inset:0; z-index:99;
+  background: rgba(250,243,232,.99);
+  flex-direction:column; align-items:center; justify-content:center; gap:32px;
+}
+.mob-overlay.open { display:flex; }
+.mob-overlay a { font-family:var(--font-d); font-size:2.25rem; color:var(--text); transition:color var(--t); }
+.mob-overlay a:hover { color:var(--gold); }
+.mob-x { position:absolute; top:24px; right:24px; color:var(--text-muted); font-size:1.5rem; cursor:pointer; padding:8px; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* Hero background — foto reale */
+.hero-photo {
+  position: absolute; inset: 0;
+  background-image: url(img/pasta-tonno.jpg);
+  background-size: cover;
+  background-position: center 55%;
+}
+
+/* Grain texture */
+
+/* Grain texture */
+.hero-grain {
+  position: absolute; inset: -50%;
+  width: 200%; height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+  animation: grain 1.2s steps(2) infinite;
+  opacity: .4;
+  pointer-events: none;
+}
+
+/* Overlay per leggibilità testo sulla foto */
+.hero-grad {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(0deg, rgba(250,243,232,.96) 0%, rgba(250,243,232,.75) 30%, rgba(250,243,232,.55) 60%, rgba(250,243,232,.70) 100%);
+}
+
+.hero-body {
+  position: relative; z-index:2;
+  padding: 140px 28px 120px;
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-pill-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+.hero-pill {
+  margin-bottom: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(130,88,45,.1);
+  border: 1px solid rgba(130,88,45,.25);
+  color: var(--gold);
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  white-space: nowrap;
+}
+
+.hero-name {
+  font-family: var(--font-d);
+  font-size: clamp(5rem, 14vw, 11rem);
+  font-weight: 700;
+  color: var(--text);
+  line-height: .9;
+  letter-spacing: -.03em;
+  margin-bottom: 4px;
+}
+.hero-name-accent { color: var(--gold); }
+
+.hero-bistrot {
+  font-family: var(--font-d);
+  font-style: italic;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  color: var(--text-muted);
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  margin-bottom: 36px;
+}
+
+.hero-line {
+  width: 1px; height: 48px;
+  background: linear-gradient(180deg, transparent, var(--gold), transparent);
+  margin: 0 auto 32px;
+}
+
+.hero-tag {
+  font-size: clamp(.95rem, 1.8vw, 1.125rem);
+  color: var(--text-muted);
+  font-weight: 400;
+  line-height: 1.8;
+  margin-bottom: 52px;
+}
+
+.hero-ctas { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+.btn-gold {
+  display: inline-flex; align-items:center; gap:8px;
+  padding: 13px 28px;
+  border-radius: 100px;
+  background: var(--gold);
+  color: #fff;
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  border: 2px solid var(--gold);
+  cursor: pointer;
+  transition: all var(--t);
+}
+.btn-gold:hover { background: var(--gold-bright); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(130,88,45,.3); }
+
+.btn-ghost-white {
+  display: inline-flex; align-items:center; gap:8px;
+  padding: 13px 28px;
+  border-radius: 100px;
+  background: transparent;
+  color: var(--text);
+  font-size: .9rem;
+  font-weight: 600;
+  border: 2px solid var(--border-2);
+  cursor: pointer;
+  transition: all var(--t);
+}
+.btn-ghost-white:hover { border-color: var(--gold); color: var(--gold); transform:translateY(-2px); }
+
+/* Stats bar bottom */
+.hero-stats {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  border-top: 1px solid var(--border);
+  background: rgba(250,243,232,.88);
+  backdrop-filter: blur(12px);
+}
+.hstat {
+  flex: 1;
+  max-width: 220px;
+  padding: 18px 24px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+.hstat:last-child { border-right: none; }
+.hstat-n { font-family: var(--font-d); font-size: 1.5rem; color: var(--gold); font-weight: 700; line-height:1; margin-bottom:3px; }
+.hstat-l { font-size: .7rem; color: var(--text-dim); letter-spacing: .1em; text-transform: uppercase; }
+
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute; bottom: 84px; right: 32px; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--text-dim);
+  font-size: .65rem; letter-spacing: .15em; text-transform: uppercase;
+  writing-mode: vertical-rl; text-orientation: mixed;
+}
+.scroll-hint::after {
+  content: '';
+  width: 1px; height: 48px;
+  background: linear-gradient(180deg, var(--text-dim), transparent);
+}
+
+/* ============================================================
+   CHI SIAMO
+   ============================================================ */
+#chi-siamo { background: var(--bg2); }
+.chi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.chi-text h2 { margin-bottom: 22px; color: var(--text); }
+.chi-text h2 em { color: var(--gold); font-style: italic; }
+.chi-text p { color: var(--text-muted); line-height: 1.85; margin-bottom: 18px; font-size: 1.025rem; }
+.chi-text p:last-of-type { margin-bottom: 0; }
+.chi-pills { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
+.chi-pill {
+  padding: 7px 16px;
+  border: 1px solid var(--border-2);
+  border-radius: 100px;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: .06em;
+  transition: all var(--t);
+}
+.chi-pill:hover { border-color: var(--gold); color: var(--gold); }
+.chi-features { display: flex; flex-direction: column; gap: 20px; }
+.chi-feat {
+  padding: 24px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  transition: all var(--t);
+  box-shadow: 0 2px 12px rgba(130,88,45,.06);
+}
+.chi-feat:hover { border-color: var(--gold-dim); transform: translateX(4px); box-shadow: 0 4px 20px rgba(130,88,45,.12); }
+.chi-feat-top { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+.chi-feat-ico {
+  width: 40px; height: 40px;
+  background: rgba(130,88,45,.1);
+  border-radius: var(--r);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold); flex-shrink: 0;
+}
+.chi-feat-ico svg { width: 20px; height: 20px; }
+.chi-feat h3 { font-family: var(--font-b); font-size: .9375rem; font-weight: 700; color: var(--text); }
+.chi-feat p  { font-size: .875rem; color: var(--text-muted); line-height: 1.65; }
+
+.chi-photo {
+  position: relative;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 32px rgba(130,88,45,.15);
+  aspect-ratio: 4/3;
+}
+.chi-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .7s ease;
+}
+.chi-photo:hover img { transform: scale(1.04); }
+.chi-photo-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 12px 16px;
+  background: linear-gradient(0deg, rgba(61,43,26,.65) 0%, transparent 100%);
+  color: rgba(255,255,255,.9);
+  font-family: var(--font-d);
+  font-style: italic;
+  font-size: .85rem;
+}
+
+
+/* ============================================================
+   MENU  – light panel inside dark site
+   ============================================================ */
+#menu {
+  background: var(--bg);
+  padding-top: 0;
+}
+
+/* Light container */
+.menu-inner {
+  background: #fdf8f2;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,.55);
+}
+
+/* Sticky tab bar */
+.menu-tabbar {
+  background: #ffffff;
+  border-bottom: 2px solid #e0ccb0;
+  padding: 28px 40px 0;
+  position: sticky;
+  top: 64px; /* below navbar */
+  z-index: 10;
+}
+.menu-tabbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.menu-tabbar-name {
+  font-family: var(--font-d);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1c1208;
+}
+.menu-tabbar-name em { color: #9b6e2a; font-style: italic; }
+.menu-tabbar-tag {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #9b6e2a;
+}
+
+.menu-tabs {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.menu-tabs::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  flex: 0 0 auto;
+  padding: 11px 24px;
+  font-family: var(--font-b);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #9b7c52;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: color var(--t), border-color var(--t);
+  white-space: nowrap;
+}
+.tab-btn:hover  { color: #7a5218; }
+.tab-btn.active { color: #7a5218; border-bottom-color: #9b6e2a; }
+
+/* Content area */
+.menu-body {
+  padding: 0 40px 56px;
+  background: #fdf8f2;
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Category header inside panel */
+.mc-cat-hd {
+  padding: 36px 0 20px;
+  border-bottom: 1px solid #e0ccb0;
+  margin-bottom: 0;
+}
+.mc-cat-label {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #9b6e2a;
+  margin-bottom: 3px;
+}
+.mc-cat-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700;
+  color: #1c1208;
+}
+.mc-cat-title em { color: #7a5218; font-style: italic; }
+
+/* Menu list rows */
+.menu-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.mc {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto auto;
+  gap: 3px 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid #e8d8c0;
+  background: transparent;
+  border-radius: 0;
+  transition: background var(--t);
+}
+.mc:last-child { border-bottom: none; }
+.mc:hover { background: #f5ede0; margin: 0 -40px; padding-left: 40px; padding-right: 40px; }
+
+.mc-top {
+  display: contents; /* let children sit in grid */
+}
+.mc-name {
+  font-family: var(--font-d);
+  font-size: 1.075rem;
+  font-weight: 600;
+  color: #1c1208;
+  line-height: 1.3;
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+}
+.mc-price {
+  font-family: var(--font-d);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #7a5218;
+  white-space: nowrap;
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: center;
+  text-align: right;
+}
+.mc-desc {
+  font-size: .875rem;
+  color: #7a5c32;
+  line-height: 1.6;
+  grid-column: 1;
+  grid-row: 2;
+}
+.mc-note {
+  font-size: .75rem;
+  color: #b08050;
+  font-style: italic;
+  grid-column: 1;
+  grid-row: 3;
+}
+.mc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #9b6e2a;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+/* ============================================================
+   EXPERIENCE STRIP
+   ============================================================ */
+#experience {
+  background: var(--bg2);
+  padding: 0;
+  overflow: hidden;
+}
+.exp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  min-height: 380px;
+}
+.exp-panel {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 40px 36px;
+  transition: transform var(--t-md);
+}
+.exp-panel:hover { transform: translateY(-4px); }
+.exp-panel::after {
+  content:'';
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, transparent 20%, rgba(0,0,0,.45) 100%);
+}
+.exp-body {
+  position: relative; z-index:1;
+}
+.exp-num {
+  font-family: var(--font-d);
+  font-size: 3rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.3);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.exp-title { font-family: var(--font-d); font-size: 1.4rem; color: #fff; margin-bottom: 8px; }
+.exp-desc  { font-size: .875rem; color: rgba(255,255,255,.75); line-height:1.65; }
+
+/* ============================================================
+   RECENSIONI
+   ============================================================ */
+#recensioni { background: var(--bg2); }
+.rec-head { margin-bottom: 48px; }
+.rec-head h2 em { color: var(--gold); }
+.rec-rating { display:flex; align-items:center; gap:16px; margin-bottom:48px; }
+.rec-big { font-family: var(--font-d); font-size: 4rem; font-weight:700; color: var(--text); line-height:1; }
+.stars { display:flex; gap:3px; }
+.star { color: #f5a623; font-size:1.1rem; }
+.star.half { opacity:.4; }
+.rec-sub { font-size:.8rem; color:var(--text-dim); margin-top:4px; }
+.reviews-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:44px; }
+.rv {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  transition: all var(--t);
+  box-shadow: 0 2px 12px rgba(130,88,45,.05);
+}
+.rv:hover { border-color: var(--gold-dim); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(130,88,45,.12); }
+.rv-top { display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+.rv-av {
+  width:40px; height:40px;
+  border-radius:50%;
+  background: var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  font-family: var(--font-d);
+  font-weight:700; color:#fff;
+  font-size:1rem; flex-shrink:0;
+}
+.rv-name { font-weight:700; font-size:.9rem; margin-bottom:2px; }
+.rv-date { font-size:.75rem; color:var(--text-dim); }
+.rv-stars { display:flex; gap:2px; margin-bottom:12px; }
+.rv-star  { color:#e8922a; font-size:.9rem; }
+.rv-txt   { font-size:.9rem; color:var(--text-muted); line-height:1.75; font-style:italic; }
+.rec-cta  { text-align:center; }
+
+/* ============================================================
+   ALLERGENI
+   ============================================================ */
+#allergeni { background: var(--bg2); }
+.allergeni-intro { text-align:center; max-width:600px; margin:0 auto 48px; }
+.allergeni-intro h2 em { color:var(--gold); }
+.allergeni-intro p { color:var(--text-muted); font-size:.975rem; line-height:1.8; margin-top:12px; }
+.allergeni-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.al-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 16px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all var(--t);
+  box-shadow: 0 2px 8px rgba(130,88,45,.04);
+}
+.al-card:hover { border-color: var(--gold-dim); box-shadow: 0 4px 16px rgba(130,88,45,.1); }
+.al-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.al-name {
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+.allergeni-note {
+  text-align: center;
+  font-size: .82rem;
+  color: var(--text-muted);
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px 20px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  line-height: 1.7;
+}
+.allergeni-note strong { color: var(--gold); }
+
+/* ============================================================
+   FORM RECENSIONI
+   ============================================================ */
+.rec-form-wrap {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 40px;
+  max-width: 640px;
+  margin: 48px auto 0;
+  box-shadow: 0 4px 24px rgba(130,88,45,.08);
+}
+.rec-form-wrap h3 {
+  font-family: var(--font-d);
+  font-size: 1.4rem;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.rec-form-wrap p { font-size: .9rem; color: var(--text-muted); margin-bottom: 24px; line-height:1.6; }
+.star-picker {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 20px;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+.star-picker input { display: none; }
+.star-picker label {
+  font-size: 2rem;
+  color: var(--border-2);
+  cursor: pointer;
+  transition: color var(--t), transform var(--t);
+  line-height: 1;
+}
+.star-picker label:hover,
+.star-picker label:hover ~ label,
+.star-picker input:checked ~ label { color: #e8922a; }
+.star-picker label:hover { transform: scale(1.2); }
+.rec-form-fields { display: flex; flex-direction: column; gap: 14px; }
+.rec-form-fields input,
+.rec-form-fields textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  font-family: var(--font-b);
+  font-size: .9375rem;
+  color: var(--text);
+  background: var(--bg);
+  transition: border-color var(--t);
+  resize: vertical;
+}
+.rec-form-fields input:focus,
+.rec-form-fields textarea:focus { outline: none; border-color: var(--gold); background: #fff; }
+.rec-form-fields textarea { min-height: 100px; }
+.rec-form-fields input::placeholder,
+.rec-form-fields textarea::placeholder { color: var(--text-dim); }
+.btn-rec-submit {
+  width: 100%;
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  padding: 13px;
+  border-radius: 100px;
+  font-family: var(--font-b);
+  font-size: .9rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--t);
+  margin-top: 6px;
+}
+.btn-rec-submit:hover { background: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(130,88,45,.2); }
+.rec-success {
+  display: none;
+  text-align: center;
+  padding: 24px;
+  color: var(--gold);
+  font-size: 1rem;
+  font-weight: 600;
+}
+.rec-success svg { display: block; margin: 0 auto 12px; }
+.btn-outline-gold {
+  display: inline-flex; align-items:center; gap:8px;
+  padding: 12px 28px;
+  border-radius: 100px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: .875rem;
+  font-weight: 600;
+  transition: all var(--t);
+  cursor: pointer;
+}
+.btn-outline-gold:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+
+/* ============================================================
+   PRENOTAZIONI
+   ============================================================ */
+#prenotazioni { background: var(--bg2); }
+.pre-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+.pre-info h2 em { color: var(--gold); }
+.pre-info p { color:var(--text-muted); font-size:1.025rem; line-height:1.8; margin: 18px 0 28px; }
+.pre-opts { display:flex; flex-direction:column; gap:12px; }
+.pre-opt {
+  display:flex; align-items:center; gap:14px;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: #fff;
+  transition: all var(--t);
+  cursor:pointer; color:inherit;
+  box-shadow: 0 2px 8px rgba(130,88,45,.06);
+}
+.pre-opt:hover { border-color: var(--gold); background: #fff; box-shadow: 0 4px 16px rgba(130,88,45,.14); transform: translateY(-2px); }
+.pre-opt-ico {
+  width:40px; height:40px;
+  background: rgba(130,88,45,.1);
+  border-radius: var(--r);
+  display:flex; align-items:center; justify-content:center;
+  color: var(--gold); flex-shrink:0;
+}
+.pre-opt strong { display:block; font-weight:700; font-size:.9rem; margin-bottom:2px; color: var(--text); }
+.pre-opt span   { font-size:.8rem; color:var(--text-muted); }
+
+.pre-form-box {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 36px;
+  box-shadow: 0 4px 24px rgba(130,88,45,.08);
+}
+.pre-form-box h3 { font-family:var(--font-d); font-size:1.25rem; color:var(--text); margin-bottom:24px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.fg { margin-bottom:14px; }
+.fg label {
+  display:block; font-size:.7rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase;
+  color:var(--text-dim); margin-bottom:5px;
+}
+.fg input, .fg select {
+  width:100%; padding:11px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  font-size:.9375rem; color:var(--text);
+  background: var(--bg);
+  transition: border-color var(--t);
+  -webkit-appearance:none;
+}
+.fg input:focus, .fg select:focus { outline:none; border-color:var(--gold); background:#fff; }
+.fg input::placeholder { color:var(--text-dim); }
+.fg select { cursor:pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2382582d' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 13px center; padding-right:36px;
+}
+.fg select option { background: #fff; color: var(--text); }
+.btn-wa {
+  width:100%; background:#25D366; color:#fff;
+  border:none; padding:13px; border-radius:100px;
+  font-size:.9rem; font-weight:700; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:9px;
+  transition:all var(--t); margin-top:6px;
+}
+.btn-wa:hover { background:#1da851; transform:translateY(-2px); box-shadow:0 8px 24px rgba(37,211,102,.25); }
+
+/* ============================================================
+   CONTATTI
+   ============================================================ */
+#contatti { background: var(--bg2); }
+.con-grid { display:grid; grid-template-columns:1fr 1.3fr; gap:56px; align-items:start; }
+.con-info h2 em { color:var(--gold); }
+.con-list { margin:28px 0; display:flex; flex-direction:column; gap:16px; }
+.con-item { display:flex; gap:14px; align-items:flex-start; }
+.con-ico {
+  width:36px; height:36px;
+  background: rgba(130,88,45,.1);
+  border: 1px solid rgba(130,88,45,.15);
+  border-radius: var(--r);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--gold); flex-shrink:0; margin-top:1px;
+}
+.con-ico svg { width:15px; height:15px; }
+.con-item-text strong { display:block; font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--text-dim); margin-bottom:3px; }
+.con-item-text span, .con-item-text a { font-size:.9375rem; color:var(--text-muted); }
+.con-item-text a:hover { color:var(--gold); }
+.ot { border-collapse:collapse; }
+.ot td { padding:2px 0; font-size:.9rem; color:var(--text-muted); }
+.ot td:first-child { padding-right:14px; font-weight:500; white-space:nowrap; color:var(--text); }
+.social-row { display:flex; gap:10px; margin-top:24px; }
+.soc-btn {
+  width:40px; height:40px;
+  border: 1px solid var(--border-2);
+  border-radius: var(--r);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--text-dim); transition:all var(--t); cursor:pointer;
+}
+.soc-btn:hover { border-color:var(--gold); color:var(--gold); }
+.soc-btn svg { width:16px; height:16px; }
+.map-box { border-radius:var(--r-xl); overflow:hidden; border:1px solid var(--border); box-shadow:var(--sh-lg); }
+.map-box iframe { display:block; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer { background: var(--bg); border-top: 1px solid var(--border); padding: 40px 24px; }
+.footer-inner {
+  max-width: var(--mw); margin: 0 auto;
+  display:flex; justify-content:space-between; align-items:center;
+  gap:24px; flex-wrap:wrap;
+}
+.footer-brand { font-family:var(--font-d); font-size:1.25rem; color:var(--text); }
+.footer-brand em { color:var(--gold); font-style:normal; }
+.footer-copy { font-size:.8rem; color:var(--text-dim); text-align:right; line-height:1.8; }
+.footer-copy a { color:rgba(61,43,26,.15); font-size:.55rem; transition:color var(--t); }
+.footer-copy a:hover { color:rgba(61,43,26,.4); }
+
+/* ============================================================
+   ADMIN
+   ============================================================ */
+#admin-panel {
+  display:none; position:fixed; inset:0; z-index:200;
+  background:rgba(0,0,0,.8); backdrop-filter:blur(6px);
+  padding:24px; overflow-y:auto;
+}
+#admin-panel.open { display:flex; align-items:flex-start; justify-content:center; padding-top:72px; }
+.admin-box {
+  background: #2a1a0e;
+  border: 1px solid #3a2410;
+  border-radius: var(--r-xl);
+  padding: 38px; width:100%; max-width:600px;
+  position:relative; box-shadow:var(--sh-lg);
+  color: #f0e6d8;
+}
+.admin-x {
+  position:absolute; top:14px; right:14px;
+  width:32px; height:32px;
+  border-radius:50%; border:1px solid #3a2410;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; color:#a08868; transition:all var(--t);
+}
+.admin-x:hover { border-color:#c49558; color:#c49558; }
+.admin-title { font-family:var(--font-d); font-size:1.5rem; color:#f0e6d8; margin-bottom:6px; }
+.admin-sub   { font-size:.9rem; color:#a08868; margin-bottom:28px; line-height:1.6; }
+.admin-lbl   { display:block; font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#a08868; margin-bottom:7px; }
+.a-inp {
+  width:100%; padding:11px 14px;
+  border: 1px solid #3a2410;
+  border-radius: var(--r);
+  font-size:.9375rem; color:#f0e6d8;
+  background: rgba(255,255,255,.05);
+  transition:border-color var(--t);
+}
+.a-inp:focus { outline:none; border-color:#c49558; }
+textarea.a-inp { resize:vertical; min-height:88px; line-height:1.6; }
+.a-wrap { position:relative; }
+.a-wrap .a-inp { padding-right:40px; }
+.a-eye { position:absolute; right:10px; top:50%; transform:translateY(-50%); color:#604830; cursor:pointer; padding:4px; transition:color var(--t); }
+.a-eye:hover { color:#c49558; }
+.examples { display:flex; gap:7px; flex-wrap:wrap; margin-top:9px; }
+.ex {
+  padding:4px 12px; background:rgba(255,255,255,.04);
+  border:1px solid #3a2410; border-radius:100px;
+  font-size:.75rem; color:#604830; cursor:pointer; transition:all var(--t);
+}
+.ex:hover { border-color:#7a5c32; color:#c49558; }
+.btn-run {
+  width:100%; background:#c49558; color:#0d0905;
+  border:none; padding:13px; border-radius:100px;
+  font-size:.9rem; font-weight:700; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:9px;
+  transition:all var(--t);
+}
+.btn-run:hover { background:#e8b06a; }
+.btn-run:disabled { opacity:.5; cursor:not-allowed; }
+.a-fb {
+  display:none; margin-top:14px; padding:13px 16px;
+  border-radius:var(--r); font-size:.875rem; line-height:1.6;
+}
+.a-fb.ok   { display:block; background:rgba(34,197,94,.1);  border:1px solid rgba(34,197,94,.25);  color:#4ade80; }
+.a-fb.err  { display:block; background:rgba(239,68,68,.1);  border:1px solid rgba(239,68,68,.25);  color:#f87171; }
+.a-fb.busy { display:block; background:rgba(196,149,88,.08); border:1px solid rgba(196,149,88,.2); color:#c49558; }
+.a-sep { border:none; border-top:1px solid #2a1a08; margin:22px 0; }
+.a-tools { display:flex; gap:8px; flex-wrap:wrap; }
+.qr-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border-radius: var(--r-lg);
+  padding: 20px;
+}
+#qr-canvas img, #qr-canvas canvas { display:block; }
+.qr-url {
+  font-size: .72rem;
+  color: #555;
+  word-break: break-all;
+  text-align: center;
+  font-family: monospace;
+}
+.a-tool {
+  padding:7px 14px; border-radius:var(--r);
+  font-size:.8rem; font-weight:600; cursor:pointer;
+  border:1px solid #3a2410; color:#a08868;
+  background:transparent; transition:all var(--t);
+}
+.a-tool:hover  { border-color:#7a5c32; color:#c49558; }
+.a-tool.red    { color:#f87171; border-color:rgba(239,68,68,.25); }
+.a-tool.red:hover { background:rgba(239,68,68,.1); border-color:#f87171; }
+
+/* ============================================================
+   MODALE PRENOTAZIONE
+   ============================================================ */
+#prenota-modal {
+  display: none;
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(61,43,26,.55);
+  backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+#prenota-modal.open { display: flex; }
+
+.prenota-box {
+  background: #fff;
+  border-radius: var(--r-xl);
+  padding: 48px 40px 40px;
+  width: 100%; max-width: 480px;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(61,43,26,.25);
+  text-align: center;
+}
+.prenota-x {
+  position: absolute; top: 14px; right: 14px;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-dim); cursor: pointer;
+  transition: all var(--t); background: transparent;
+  font-size: .9rem;
+}
+.prenota-x:hover { border-color: var(--gold); color: var(--gold); }
+
+.prenota-icon {
+  width: 56px; height: 56px;
+  background: rgba(130,88,45,.1);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  color: var(--gold);
+}
+.prenota-title {
+  font-family: var(--font-d);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.prenota-sub {
+  font-size: .9rem;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+.prenota-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.prenota-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-b);
+  font-size: .95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--t);
+  text-align: left;
+}
+.prenota-btn:hover {
+  border-color: var(--gold);
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(130,88,45,.12);
+  transform: translateY(-2px);
+}
+.prenota-btn-ico {
+  width: 42px; height: 42px;
+  border-radius: var(--r);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.prenota-btn-ico.gold { background: var(--gold); color: #fff; }
+.prenota-btn-ico.green { background: #25D366; color: #fff; }
+.prenota-btn-text strong { display: block; font-weight: 700; margin-bottom: 2px; }
+.prenota-btn-text span { font-size: .8rem; color: var(--text-muted); font-weight: 400; }
+.prenota-divider {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--text-dim); font-size: .75rem;
+  text-transform: uppercase; letter-spacing: .1em;
+  margin: 4px 0;
+}
+.prenota-divider::before, .prenota-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+/* ============================================================
+   LANGUAGE SWITCHER
+   ============================================================ */
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 3px;
+}
+.lang-btn {
+  padding: 5px 12px;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-b);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  cursor: pointer;
+  transition: all var(--t);
+}
+.lang-btn.active {
+  background: var(--gold);
+  color: #fff;
+}
+.lang-btn:not(.active):hover { color: var(--gold); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .chi-grid      { grid-template-columns:1fr; gap:48px; }
+  .exp-grid      { grid-template-columns:1fr; }
+  .exp-panel     { min-height:300px; }
+  .pre-grid      { grid-template-columns:1fr; }
+  .con-grid      { grid-template-columns:1fr; }
+  .reviews-grid  { grid-template-columns:1fr 1fr; }
+  .hero-stats    { display:none; }
+  .numeri-grid   { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  section          { padding: 64px 20px; }
+  .nav-links       { display:none; }
+  .burger          { display:flex; }
+  .reviews-grid    { grid-template-columns:1fr; }
+  .form-row        { grid-template-columns:1fr; }
+  .pre-form-box    { padding:26px 18px; }
+  .admin-box       { padding:28px 18px; }
+  .menu-tabbar     { padding: 20px 20px 0; top: 56px; }
+  .menu-body       { padding: 0 20px 40px; }
+  .mc:hover        { margin: 0 -20px; padding-left: 20px; padding-right: 20px; }
+  .menu-tabbar-brand { display: none; }
+  .footer-copy     { text-align:left; }
+  .footer-inner    { flex-direction:column; align-items:flex-start; }
+  .numeri-grid   { grid-template-columns: 1fr 1fr; }
+  .hstat { max-width:none; flex:0 0 auto; padding:14px 18px; }
+  .hero-stats { overflow-x: auto; justify-content: flex-start; }
+}
+@media (max-width:480px) {
+  .hero-ctas    { flex-direction:column; align-items:center; }
+  .hero-ctas .btn-gold,
+  .hero-ctas .btn-ghost-white { width:100%; justify-content:center; }
+  .tab-btn      { padding:7px 14px; font-size:.75rem; }
+  .numeri-grid  { grid-template-columns: 1fr; }
+  .num-card     { padding: 32px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="nav">
+  <div class="nav-row">
+    <a href="#hero" class="nav-brand">
+      <img src="img/logo.svg" alt="Deca Bistrot" class="nav-brand-logo">
+      <div>
+        <div class="nav-brand-text">Deca <em>Bistrot</em></div>
+        <div class="nav-brand-sub">Palermo</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#chi-siamo" data-i18n="nav_chi">Chi Siamo</a></li>
+      <li><a href="#menu"      data-i18n="nav_menu">Menu</a></li>
+      <li><a href="#recensioni"data-i18n="nav_rec">Recensioni</a></li>
+      <li><a href="#contatti"  data-i18n="nav_con">Contatti</a></li>
+      <li><a href="#" class="nav-pill prenota-trig" data-i18n="nav_prenota">Prenota</a></li>
+    </ul>
+    <div class="lang-switch" role="group" aria-label="Lingua">
+      <button class="lang-btn active" data-lang="it">IT</button>
+      <button class="lang-btn"        data-lang="en">EN</button>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mob-overlay" id="mob" role="dialog" aria-modal="true">
+  <button class="mob-x" id="mob-x" aria-label="Chiudi">✕</button>
+  <a href="#chi-siamo" class="mob-l" data-i18n="nav_chi">Chi Siamo</a>
+  <a href="#menu"      class="mob-l" data-i18n="nav_menu">Menu</a>
+  <a href="#recensioni"class="mob-l" data-i18n="nav_rec">Recensioni</a>
+  <a href="#" class="mob-l prenota-trig" data-i18n="nav_prenota">Prenota</a>
+  <a href="#contatti"  class="mob-l" data-i18n="nav_con">Contatti</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-photo" id="hero-photo"></div>
+  <div class="hero-grad"  aria-hidden="true"></div>
+
+  <div class="hero-body rise">
+    <div class="hero-pill-wrap">
+      <div class="hero-pill">
+        <span data-i18n="hero_pill">Palermo · Piazza Giovanni Meli · dal 2018</span>
+      </div>
+    </div>
+    <div class="hero-name">De<span class="hero-name-accent">ca</span></div>
+    <div class="hero-bistrot">Bistrot</div>
+    <div class="hero-line" aria-hidden="true"></div>
+    <p class="hero-tag" data-i18n="hero_tag">
+      Cucina di mare, cocktail che raccontano la Sicilia<br>
+      e una piazza dove il tempo si ferma volentieri
+    </p>
+    <div class="hero-ctas">
+      <button class="btn-gold prenota-trig" data-i18n="hero_prenota">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Prenota un Tavolo
+      </button>
+      <a href="#menu" class="btn-ghost-white" data-i18n="hero_menu">
+        Scopri il Menu
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-stats" aria-label="Info rapide">
+    <div class="hstat"><div class="hstat-n">4.7★</div><div class="hstat-l" data-i18n="stat_rec">416 recensioni</div></div>
+    <div class="hstat"><div class="hstat-n">20–30€</div><div class="hstat-l" data-i18n="stat_pp">a persona</div></div>
+    <div class="hstat"><div class="hstat-n">11:30–02:00</div><div class="hstat-l" data-i18n="stat_days">tutti i giorni</div></div>
+    <div class="hstat"><div class="hstat-n">Palermo</div><div class="hstat-l">P.za Giovanni Meli 1</div></div>
+  </div>
+
+</section>
+
+<!-- CHI SIAMO -->
+<section id="chi-siamo">
+  <div class="wrap">
+    <div class="chi-grid">
+      <div class="chi-text rise">
+        <img src="img/logo.svg" alt="Deca Bistrot" class="section-logo">
+        <p class="label" data-i18n="chi_label">La nostra storia</p>
+        <h2 data-i18n="chi_h2">Un posto dove <em>stare bene</em></h2>
+        <p data-i18n="chi_p1">Deca Bistrot nasce da un'idea semplice: un posto dove mangiare bene senza fare i seri, bere cocktail che sappiano di Sicilia, e restare a tavola fino a tardi.</p>
+        <p data-i18n="chi_p2">Siamo a <strong style="color:var(--gold)">Piazza Giovanni Meli</strong>, nel cuore antico di Palermo. La cucina è quella del mare, degli orti siciliani, del mercato del mattino.</p>
+        <p data-i18n="chi_p3">La sera diventa cocktail bar: il bar team mescola agrumi IGP, amari di territorio e vini autoctoni. Nessuna pretesa, solo buone cose.</p>
+        <div class="chi-pills">
+          <span class="chi-pill" data-i18n="chi_pill1">Cucina di mare</span>
+          <span class="chi-pill" data-i18n="chi_pill2">Cocktail bar</span>
+          <span class="chi-pill" data-i18n="chi_pill3">Happy hour 18–20</span>
+          <span class="chi-pill" data-i18n="chi_pill4">Aperto fino alle 02:00</span>
+        </div>
+      </div>
+      <div class="chi-features rise d2">
+        <div class="chi-photo">
+          <img src="img/tagliatelle-astice.jpg" alt="Tagliatelle all'astice – Deca Bistrot Palermo" loading="lazy">
+          <div class="chi-photo-caption">Tagliatelle all'astice · cucina di mare</div>
+        </div>
+        <div class="chi-feat">
+          <div class="chi-feat-top">
+            <div class="chi-feat-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            </div>
+            <h3 data-i18n="feat1_title">Cucina di mare</h3>
+          </div>
+          <p data-i18n="feat1_desc">Pescato fresco ogni mattina. Polpo, seppie, gamberi di Mazara, frittura di paranza — la Sicilia autentica nel piatto.</p>
+        </div>
+        <div class="chi-feat">
+          <div class="chi-feat-top">
+            <div class="chi-feat-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22H6a2 2 0 01-2-2V7l2-5h8l2 5v13a2 2 0 01-2 2h-2M8 22V12h8v10"/><line x1="12" y1="7" x2="12" y2="12"/></svg>
+            </div>
+            <h3 data-i18n="feat2_title">Cocktail bar</h3>
+          </div>
+          <p data-i18n="feat2_desc">Dal tramonto il bar team crea signature cocktail con agrumi IGP, amari locali e vini autoctoni. Ogni sorso racconta l'isola.</p>
+        </div>
+        <div class="chi-feat">
+          <div class="chi-feat-top">
+            <div class="chi-feat-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h3 data-i18n="feat3_title">Happy hour 18–20</h3>
+          </div>
+          <p data-i18n="feat3_desc">Ogni giorno dalle 18 alle 20. Aperitivi, stuzzicherie siciliane e cocktail a prezzo speciale.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="wrap">
+    <div class="menu-section-head rise" style="text-align:center;margin-bottom:40px;">
+      <p class="label" data-i18n="menu_label">Cosa mangiamo</p>
+      <h2 data-i18n="menu_h2">Il <em>Menu</em></h2>
+    </div>
+    <div class="menu-inner rise d1">
+      <div class="menu-tabbar">
+        <div class="menu-tabbar-brand">
+          <img src="img/logo.svg" alt="Deca Bistrot" style="width:44px;height:44px;flex-shrink:0;">
+          <span class="menu-tabbar-name">Deca <em>Bistrot</em></span>
+          <span class="menu-tabbar-tag">Piazza Giovanni Meli · Palermo</span>
+        </div>
+        <div class="menu-tabs" role="tablist">
+          <button class="tab-btn active" data-tab="antipasti"  role="tab" aria-selected="true">Antipasti</button>
+          <button class="tab-btn"        data-tab="primi"      role="tab" aria-selected="false">Primi</button>
+          <button class="tab-btn"        data-tab="secondi"    role="tab" aria-selected="false">Secondi</button>
+          <button class="tab-btn"        data-tab="contorni"   role="tab" aria-selected="false">Contorni</button>
+          <button class="tab-btn"        data-tab="dessert"    role="tab" aria-selected="false">Dessert</button>
+          <button class="tab-btn"        data-tab="cocktails"  role="tab" aria-selected="false">Cocktails</button>
+          <button class="tab-btn"        data-tab="mocktails"  role="tab" aria-selected="false">Mocktails</button>
+          <button class="tab-btn"        data-tab="vini"       role="tab" aria-selected="false">Vini</button>
+          <button class="tab-btn"        data-tab="drinks"     role="tab" aria-selected="false">Drinks</button>
+        </div>
+      </div>
+      <div class="menu-body" id="menu-out"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ALLERGENI -->
+<section id="allergeni">
+  <div class="wrap">
+    <div class="allergeni-intro rise">
+      <p class="label" data-i18n="all_label">Trasparenza a tavola</p>
+      <h2 data-i18n="all_h2">Informazioni sugli <em>Allergeni</em></h2>
+      <p data-i18n="all_intro">In conformità al Reg. UE 1169/2011, i nostri piatti possono contenere i seguenti allergeni. Per informazioni dettagliate su un piatto specifico, chiedi al nostro staff.</p>
+    </div>
+    <div class="allergeni-grid rise d1">
+      <div class="al-card"><div class="al-icon">🌾</div><div class="al-name">Glutine<br><span style="font-weight:400;color:var(--text-muted);font-size:.72rem;">grano, segale, orzo</span></div></div>
+      <div class="al-card"><div class="al-icon">🦐</div><div class="al-name">Crostacei<br><span style="font-weight:400;color:var(--text-muted);font-size:.72rem;">gamberi, scampi, granchi</span></div></div>
+      <div class="al-card"><div class="al-icon">🥚</div><div class="al-name">Uova<br><span style="font-weight:400;color:var(--text-muted);font-size:.72rem;">e derivati</span></div></div>
+      <div class="al-card"><div class="al-icon">🐟</div><div class="al-name">Pesce<br><span style="font-weight:400;color:var(--text-muted);font-size:.72rem;">e derivati</span></div></div>
+      <div class="al-card"><div class="al-icon">🥜</div><div class="al-name">Arachidi<br><span style="font-weight:400;color:var(--text-muted);font-size:.72rem;">e derivati</span></div></div>
+      <div class="al-card"><div class="al-icon">🫘</div><div class="al-name">Soia<br><span style="font-weight:400;color:var(--text-muted);font-size:.72rem;">e derivati</span></div></div>
+      <div class="al-card"><div class="al-icon">🥛</div><div class="al-name">Latte<br><span style="font-weight:400;color:var(--text-muted);font-size:.72rem;">e derivati (lattosio)</span></div></div>
+      <div class="al-card"><div class="al-icon">🌰</div><div class="al-name">Frutta a guscio<br><span style="font-weight:400;color:var(--text-muted);font-size:.72rem;">noci, mandorle, pistacchi</span></div></div>
+      <div class="al-card"><div class="al-icon">🌿</div><div class="al-name">Sedano<br><span style="font-weight:400;color:var(--text-muted);font-size:.72rem;">e derivati</span></div></div>
+      <div class="al-card"><div class="al-icon">🟡</div><div class="al-name">Senape<br><span style="font-weight:400;color:var(--text-muted);font-size:.72rem;">e derivati</span></div></div>
+      <div class="al-card"><div class="al-icon">🌻</div><div class="al-name">Semi di sesamo<br><span style="font-weight:400;color:var(--text-muted);font-size:.72rem;">e derivati</span></div></div>
+      <div class="al-card"><div class="al-icon">🍷</div><div class="al-name">Solfiti<br><span style="font-weight:400;color:var(--text-muted);font-size:.72rem;">anidride solforosa</span></div></div>
+      <div class="al-card"><div class="al-icon">🌱</div><div class="al-name">Lupini<br><span style="font-weight:400;color:var(--text-muted);font-size:.72rem;">e derivati</span></div></div>
+      <div class="al-card"><div class="al-icon">🐙</div><div class="al-name">Molluschi<br><span style="font-weight:400;color:var(--text-muted);font-size:.72rem;">cozze, vongole, polpo</span></div></div>
+    </div>
+    <p class="allergeni-note rise d2" data-i18n="all_note">
+      <strong>⚠ Avviso:</strong> I nostri piatti vengono preparati in cucine dove si utilizzano tutti gli allergeni elencati. Non possiamo garantire l'assenza totale di contaminazione crociata. Per qualsiasi esigenza alimentare o allergia grave, <strong>informate sempre il personale prima di ordinare.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="exp-grid">
+    <div class="exp-panel" style="background:linear-gradient(160deg,#c44b2a,#e8822a,#c49558)">
+      <div class="exp-body">
+        <div class="exp-num">01</div>
+        <h3 class="exp-title" data-i18n="exp1_title">Cucina di mare</h3>
+        <p class="exp-desc" data-i18n="exp1_desc">Pescato fresco ogni mattina. Il menu cambia, il sapore no.</p>
+      </div>
+    </div>
+    <div class="exp-panel" style="background:linear-gradient(160deg,#1a3a5c,#2e6da4,#1a5c8a)">
+      <div class="exp-body">
+        <div class="exp-num">02</div>
+        <h3 class="exp-title" data-i18n="exp2_title">Cocktail bar</h3>
+        <p class="exp-desc" data-i18n="exp2_desc">Agrumi IGP, amari di Sicilia, vini autoctoni. Ogni drink è un posto.</p>
+      </div>
+    </div>
+    <div class="exp-panel" style="background:linear-gradient(160deg,#4a1e6e,#7b3fa8,#c44b2a)">
+      <div class="exp-body">
+        <div class="exp-num">03</div>
+        <h3 class="exp-title" data-i18n="exp3_title">L'atmosfera</h3>
+        <p class="exp-desc" data-i18n="exp3_desc">Pranzo tranquillo, cena vivace, notte lunga. Sempre a Piazza Meli.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECENSIONI -->
+<section id="recensioni">
+  <div class="wrap">
+    <div class="rec-head rise">
+      <p class="label" data-i18n="rec_label">Dicono di noi</p>
+      <h2 data-i18n="rec_h2">Le <em>recensioni</em></h2>
+    </div>
+    <div class="rec-rating rise d1">
+      <div class="rec-big">4.7</div>
+      <div>
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star half">★</span></div>
+        <div class="rec-sub" data-i18n="rec_sub">su 416 recensioni Google</div>
+      </div>
+    </div>
+    <div class="reviews-grid rise d2">
+      <article class="rv">
+        <div class="rv-top">
+          <div class="rv-av">A</div>
+          <div><div class="rv-name">Anna M.</div><div class="rv-date">Marzo 2025</div></div>
+        </div>
+        <div class="rv-stars"><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span></div>
+        <p class="rv-txt">"Il polpo alla luciana era straordinario e i cocktail al tramonto... un'esperienza unica. Torneremo sicuramente — e presto!"</p>
+      </article>
+      <article class="rv">
+        <div class="rv-top">
+          <div class="rv-av">M</div>
+          <div><div class="rv-name">Marco L.</div><div class="rv-date">Febbraio 2025</div></div>
+        </div>
+        <div class="rv-stars"><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span></div>
+        <p class="rv-txt">"La pasta al nero di seppia è la migliore che abbia mai mangiato a Palermo. Staff cordiale, prezzi onestissimi per la qualità."</p>
+      </article>
+      <article class="rv">
+        <div class="rv-top">
+          <div class="rv-av">S</div>
+          <div><div class="rv-name">Sophie R.</div><div class="rv-date">Gennaio 2025</div></div>
+        </div>
+        <div class="rv-stars"><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star" style="opacity:.25">★</span></div>
+        <p class="rv-txt">"I cocktail con agrumi siciliani sono memorabili. L'atmosfera è calda e vivace — esattamente quello che cercavamo a Palermo."</p>
+      </article>
+    </div>
+    <div class="rec-cta rise d3">
+      <a href="https://g.page/r/review" target="_blank" rel="noopener" class="btn-outline-gold">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span data-i18n="rec_cta">Lascia una recensione su Google</span>
+      </a>
+    </div>
+
+    <!-- FORM RECENSIONE -->
+    <div class="rec-form-wrap rise d4">
+      <h3 data-i18n="recf_title">Raccontaci la tua esperienza</h3>
+      <p data-i18n="recf_desc">Hai cenato da noi? Lascia una valutazione — ci aiuta a migliorare e a far sapere agli altri cosa aspettarsi.</p>
+      <form id="rec-form" novalidate>
+        <div class="star-picker" role="radiogroup" aria-label="Valutazione">
+          <input type="radio" name="stelle" id="s5" value="5"><label for="s5" title="5 stelle">★</label>
+          <input type="radio" name="stelle" id="s4" value="4"><label for="s4" title="4 stelle">★</label>
+          <input type="radio" name="stelle" id="s3" value="3"><label for="s3" title="3 stelle">★</label>
+          <input type="radio" name="stelle" id="s2" value="2"><label for="s2" title="2 stelle">★</label>
+          <input type="radio" name="stelle" id="s1" value="1"><label for="s1" title="1 stella">★</label>
+        </div>
+        <div class="rec-form-fields">
+          <input type="text" id="rec-nome" placeholder="Il tuo nome (opzionale)" data-i18n-ph="recf_ph_nome" autocomplete="name">
+          <textarea id="rec-testo" placeholder="Descrivi la tua esperienza… (opzionale)" data-i18n-ph="recf_ph_testo" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn-rec-submit">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+          <span data-i18n="recf_submit">Invia la tua recensione</span>
+        </button>
+      </form>
+      <div class="rec-success" id="rec-success">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#82582d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+        <span data-i18n="recf_thanks">Grazie per la tua recensione! 🙏</span><br>
+        <span style="font-size:.85rem;color:var(--text-muted);font-weight:400;" data-i18n="recf_thanks2">La tua opinione è preziosa per noi.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRENOTAZIONI -->
+<section id="prenotazioni">
+  <div class="wrap">
+    <div class="pre-grid">
+      <div class="pre-info rise">
+        <p class="label" data-i18n="pre_label">Riserva il tuo posto</p>
+        <h2 data-i18n="pre_h2">Prenota<br>un <em>Tavolo</em></h2>
+        <p data-i18n="pre_sub">Tutti i giorni dalle 11:30 alle 02:00. Scegli come vuoi.</p>
+        <div class="pre-opts">
+          <a href="https://www.quandoo.it/place/deca-bistrot-89123" target="_blank" rel="noopener" class="pre-opt">
+            <div class="pre-opt-ico">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div><strong data-i18n="pre_quandoo">Prenota su Quandoo</strong><span data-i18n="pre_quandoo_sub">Conferma immediata online</span></div>
+          </a>
+          <a href="tel:+393278976765" class="pre-opt">
+            <div class="pre-opt-ico">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.06 6.06l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div><strong data-i18n="pre_tel">Chiama direttamente</strong><span>+39 327 897 6765</span></div>
+          </a>
+        </div>
+      </div>
+      <div class="pre-form-box rise d2">
+        <h3 data-i18n="pre_wa_title">O scrivici su WhatsApp</h3>
+        <form id="pre-form" novalidate>
+          <div class="form-row">
+            <div class="fg"><label for="f-nome" data-i18n="pre_nome">Nome *</label><input type="text" id="f-nome" placeholder="Mario Rossi" required autocomplete="name"></div>
+            <div class="fg"><label for="f-tel" data-i18n="pre_phone">Telefono *</label><input type="tel" id="f-tel" placeholder="+39 333 …" required autocomplete="tel"></div>
+          </div>
+          <div class="form-row">
+            <div class="fg"><label for="f-data" data-i18n="pre_date">Data *</label><input type="date" id="f-data" required></div>
+            <div class="fg"><label for="f-ora" data-i18n="pre_time">Ora *</label>
+              <select id="f-ora" required>
+                <option value="" data-i18n-opt="pre_select">Seleziona</option>
+                <optgroup label="Pranzo" data-i18n-grp="pre_lunch"><option>11:30</option><option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option><option>14:00</option></optgroup>
+                <optgroup label="Cena" data-i18n-grp="pre_dinner"><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option><option>21:00</option><option>21:30</option><option>22:00</option></optgroup>
+              </select>
+            </div>
+          </div>
+          <div class="fg"><label for="f-pax" data-i18n="pre_pax">Quante persone? *</label>
+            <select id="f-pax" required>
+              <option value="" data-i18n-opt="pre_select">Seleziona</option>
+              <option>1 persona</option><option>2 persone</option><option>3 persone</option>
+              <option>4 persone</option><option>5 persone</option><option>6 persone</option>
+              <option>7 persone</option><option>8 persone</option><option>Più di 8</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-wa">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span data-i18n="pre_wa_btn">Invia su WhatsApp</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATTI -->
+<section id="contatti">
+  <div class="wrap">
+    <div class="con-grid">
+      <div class="rise">
+        <img src="img/logo.svg" alt="Deca Bistrot" class="contatti-logo">
+        <p class="label" data-i18n="con_label">Trovaci</p>
+        <h2 data-i18n="con_h2">Dove <em>siamo</em></h2>
+        <div class="con-list">
+          <div class="con-item">
+            <div class="con-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="con-item-text"><strong data-i18n="con_addr">Indirizzo</strong><a href="https://maps.google.com/?q=Piazza+Giovanni+Meli+1+Palermo" target="_blank" rel="noopener">Piazza Giovanni Meli 1<br>Palermo 90133</a></div>
+          </div>
+          <div class="con-item">
+            <div class="con-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.06 6.06l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+            <div class="con-item-text"><strong data-i18n="con_phone">Telefono</strong><a href="tel:+393278976765">+39 327 897 6765</a></div>
+          </div>
+          <div class="con-item">
+            <div class="con-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="con-item-text"><strong data-i18n="con_hours">Orari</strong><table class="ot"><tr><td data-i18n="con_everyday">Ogni giorno</td><td>11:30 – 02:00</td></tr></table></div>
+          </div>
+          <div class="con-item">
+            <div class="con-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div class="con-item-text"><strong data-i18n="con_email">Email</strong><a href="mailto:info@decabistrot.it">info@decabistrot.it</a></div>
+          </div>
+        </div>
+        <div class="social-row">
+          <a href="#" class="soc-btn" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="#" class="soc-btn" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        </div>
+      </div>
+      <div class="map-box rise d2">
+        <iframe src="https://maps.google.com/maps?q=Piazza+Giovanni+Meli+1,+Palermo+90133&output=embed&z=16"
+          width="100%" height="440" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade" title="Deca Bistrot su Google Maps"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Deca <em>Bistrot</em></div>
+    <div class="footer-copy">
+      <p>© 2025 Deca Bistrot &nbsp;·&nbsp; P.IVA 00000000000</p>
+      <p>Piazza Giovanni Meli 1, 90133 Palermo</p>
+      <p><a href="#admin" id="admin-trig">admin</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- MODALE PRENOTAZIONE -->
+<div id="prenota-modal" role="dialog" aria-modal="true" aria-label="Come vuoi prenotare?">
+  <div class="prenota-box">
+    <button class="prenota-x" id="prenota-x" aria-label="Chiudi">✕</button>
+    <div class="prenota-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    </div>
+    <div class="prenota-title" data-i18n="mod_title">Come vuoi prenotare?</div>
+    <p class="prenota-sub" data-i18n="mod_sub">Scegli il modo più comodo per riservare il tuo tavolo da Deca Bistrot.</p>
+    <div class="prenota-btns">
+      <a href="https://www.quandoo.it/place/deca-bistrot-89123" target="_blank" rel="noopener" class="prenota-btn">
+        <div class="prenota-btn-ico gold">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="prenota-btn-text">
+          <strong data-i18n="mod_online">Prenota Online</strong>
+          <span data-i18n="mod_online_sub">Conferma immediata su Quandoo</span>
+        </div>
+      </a>
+      <div class="prenota-divider" data-i18n="mod_or">oppure</div>
+      <a href="https://wa.me/393278976765?text=Ciao!%20Vorrei%20prenotare%20un%20tavolo%20da%20Deca%20Bistrot" target="_blank" rel="noopener" class="prenota-btn">
+        <div class="prenota-btn-ico green">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <div class="prenota-btn-text">
+          <strong data-i18n="mod_wa">Scrivici su WhatsApp</strong>
+          <span data-i18n="mod_wa_sub">Risposta rapida · +39 327 897 6765</span>
+        </div>
+      </a>
+      <div class="prenota-divider" data-i18n="mod_or">oppure</div>
+      <a href="#prenotazioni" class="prenota-btn" id="prenota-form-link">
+        <div class="prenota-btn-ico" style="background:var(--bg2); color:var(--gold);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <div class="prenota-btn-text">
+          <strong data-i18n="mod_form">Compila il modulo</strong>
+          <span data-i18n="mod_form_sub">Vai alla sezione prenotazioni</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin-panel" role="dialog" aria-modal="true">
+  <div class="admin-box">
+    <button class="admin-x" id="admin-x" aria-label="Chiudi">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h2 class="admin-title">Aggiornamento Menu</h2>
+    <p class="admin-sub">Scrivi in italiano cosa vuoi cambiare. Claude interpreta e aggiorna il menu in tempo reale.</p>
+    <div style="margin-bottom:18px;">
+      <label class="admin-lbl" for="a-key">API Key Anthropic</label>
+      <div class="a-wrap">
+        <input type="password" id="a-key" class="a-inp" placeholder="sk-ant-api03-…" autocomplete="off" spellcheck="false">
+        <button class="a-eye" id="a-eye" type="button" aria-label="Mostra/nascondi chiave">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <label class="admin-lbl" for="a-cmd">Istruzione in linguaggio naturale</label>
+      <textarea id="a-cmd" class="a-inp" rows="3"
+        placeholder="Aggiungi Risotto al nero di seppia €16 tra i primi&#10;Rimuovi Acciughe Marinate&#10;Modifica prezzo Polpo da €12 a €15&#10;Segna Spigola come consigliato"></textarea>
+      <div class="examples">
+        <button type="button" class="ex" data-ex="Aggiungi: Risotto al nero di seppia €16 nei primi, con gamberi e bisque">+ Aggiungi piatto</button>
+        <button type="button" class="ex" data-ex="Rimuovi Acciughe Marinate dagli antipasti">− Rimuovi</button>
+        <button type="button" class="ex" data-ex="Modifica il prezzo del Polpo alla Luciana da €12 a €15">Prezzo</button>
+        <button type="button" class="ex" data-ex="Segna come consigliato il Risotto al Gambero Rosso">★ Consigliato</button>
+      </div>
+    </div>
+    <button type="button" class="btn-run" id="a-run">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      Aggiorna con Claude
+    </button>
+    <div class="a-fb" id="a-fb"></div>
+    <hr class="a-sep">
+    <div class="admin-lbl" style="margin-bottom:10px;">Azioni rapide</div>
+    <div class="a-tools">
+      <button type="button" class="a-tool red" id="a-reset">Ripristina originale</button>
+      <button type="button" class="a-tool"     id="a-export">Esporta JSON</button>
+    </div>
+
+    <hr class="a-sep">
+    <div class="admin-lbl" style="margin-bottom:6px;">QR Code Menu Tavolo</div>
+    <p style="font-size:.8rem;color:var(--text-muted);margin-bottom:16px;line-height:1.5;">Scansiona per aprire il menu digitale. Stampa e posiziona sui tavoli.</p>
+    <div class="qr-block">
+      <div id="qr-canvas"></div>
+      <div class="qr-url" id="qr-url-label"></div>
+    </div>
+    <div class="a-tools" style="margin-top:14px;">
+      <button type="button" class="a-tool" id="a-qr-dl">Scarica PNG</button>
+      <button type="button" class="a-tool" id="a-qr-open">Apri menu</button>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+/* ── MENU DATA ───────────────────────────── */
+const DEF = {
+  antipasti:[
+    {id:'a1',name:'Polpo',                     desc:'Polpo in doppia cottura su tortino di patate e cardamomo',                                          price:9,  featured:true},
+    {id:'a2',name:'Tris di bruschette',         desc:'Tartare di gambero con pere e mandorle, tartare di scampo su caprino al limone, tartare di salmone su yogurt', price:18, featured:true},
+    {id:'a3',name:'Arancinette',                desc:'Con pesce spada, pomodorino e menta su letto di salsa di melanzana',                               price:9,  featured:false},
+    {id:'a4',name:'Tartare di anguria',         desc:'Pomodorini rossi, mozzarella e pesto di pistacchio',                                               price:9,  featured:false},
+    {id:'a5',name:'Cous cous a modo nostro',    desc:'Con gambero, cozze, vongole e calamari',                                                           price:13, featured:false},
+    {id:'a6',name:'Tagliere salumi e formaggi', desc:'Selezione di salumi e formaggi con confettura del giorno',                                         price:16, featured:false},
+    {id:'a7',name:'Caponata',                   desc:'Classica caponata siciliana di melanzane',                                                          price:6,  featured:false},
+    {id:'a8',name:'Piatto aperitivo',           desc:'Paninetti con panelle e crocchè, mix affettati, crocchette di latte, bocconcini di pollo, verdurine e mozzarelline', price:20, featured:false},
+  ],
+  primi:[
+    {id:'p1',name:'Spaghetto vongole e cozze', desc:'Con asparagi e crumble di amaretti',                                          price:17, featured:true},
+    {id:'p2',name:'Busiate pesce spada e gamberi', desc:'Pesce spada, gamberi, pomodorini, polvere di prezzemolo e pesto di pistacchio', price:16, featured:true},
+    {id:'p3',name:'Pacchero deca',             desc:'Guanciale, salsiccia, burrata, pesto di pistacchio e pomodorino',             price:14, featured:true},
+    {id:'p4',name:'Spaghetti aglio e olio',    desc:'Con tartare di gambero rosso',                                                price:16, featured:false},
+    {id:'p5',name:'Paccheri alla norma',       desc:'Salsa di pomodoro, melanzane fritte e ricotta salata',                       price:14, featured:false},
+    {id:'p6',name:'Nerano',                    desc:'Pasta con zucchine fritte e fonduta di provola',                             price:12, featured:false},
+    {id:'p7',name:'Carbonara',                 desc:'Pasta alla carbonara classica',                                              price:13, featured:false},
+  ],
+  secondi:[
+    {id:'s1',name:'Ombrina',             desc:'Con salsa aioli e ananas',                                             price:20, featured:true},
+    {id:'s2',name:'Tagliata di angus',   desc:'Con rucola, grana e pomodoro',                                        price:18, featured:true},
+    {id:'s3',name:'Frittura di calamaro',desc:'Calamari fritti croccanti',                                           price:18, featured:false},
+    {id:'s4',name:'Salmone',             desc:'Con salsa alla senape, aceto balsamico e miele',                      price:16, featured:false},
+    {id:'s5',name:'Orata',               desc:'Con salsa di piselli, caprino al limone e gocce di nero di seppia',  price:14, featured:false},
+  ],
+  cocktails:[
+    {id:'c1',name:'Negroni del professore', desc:'Cocktail signature della casa',                     price:12, featured:true},
+    {id:'c2',name:'Pornstar martini',       desc:'Vodka, maracuja, Passoa, lime e prosecco',          price:9,  featured:true},
+    {id:'c3',name:'Old fashioned',          desc:'Whiskey, angostura, zucchero di canna',             price:8,  featured:false},
+    {id:'c4',name:'Whiskey sour',           desc:'Whiskey, succo di limone, albume, angostura',       price:8,  featured:false},
+    {id:'c5',name:'Aperol spritz',          desc:'Aperol, prosecco, soda e arancia',                  price:7,  featured:false},
+    {id:'c6',name:'Hugo spritz',            desc:'Prosecco, sciroppo di sambuco, menta, soda e lime', price:8,  featured:false},
+    {id:'c7',name:'Limoncello spritz',      desc:'Limoncello, prosecco e soda',                       price:9,  featured:false},
+    {id:'c8',name:'Mojito cubano',          desc:'Rum bianco, lime, menta, zucchero e soda',          price:7,  featured:false},
+    {id:'c9',name:'Campari negroni',        desc:'Gin, Campari, vermouth rosso',                      price:10, featured:false},
+    {id:'c10',name:'Piña colada',           desc:'Rum, latte di cocco, ananas',                       price:9,  featured:false},
+    {id:'c11',name:'Daiquiri',              desc:'Rum, succo di lime, zucchero',                      price:7,  featured:false},
+    {id:'c12',name:'Margarita',             desc:'Tequila, Cointreau, lime',                          price:7,  featured:false},
+  ],
+  vini:[
+    {id:'v1',name:'Vino bianco al calice',   desc:'Selezione del giorno tra Grillo, Cataratto, Etna Bianco', price:6,  featured:false, note:'al calice'},
+    {id:'v2',name:'Vino rosso al calice',    desc:'Nero d\'Avola, Perricone o Etna Rosso',                  price:6,  featured:false, note:'al calice'},
+    {id:'v3',name:'Prosecco al calice',      desc:'Bollicine italiane',                                      price:6,  featured:false, note:'al calice'},
+    {id:'v4',name:'Champagne al calice',     desc:'Selezione premium (min. 2 calici)',                       price:10, featured:false, note:'al calice'},
+    {id:'v5',name:'Vini bianchi in bottiglia',desc:'Grillo, Cataratto, Etna Bianco, Souvignon Blanc e altri', price:20, featured:false, note:'bottiglia'},
+    {id:'v6',name:'Vini rossi in bottiglia', desc:'Nero d\'Avola, Etna Rosso, Barbera e altri',              price:20, featured:false, note:'bottiglia'},
+    {id:'v7',name:'Bollicine in bottiglia',  desc:'Prosecco, Franciacorta, Champagne, Etna Metodo Classico', price:20, featured:false, note:'bottiglia'},
+  ],
+  contorni:[
+    {id:'co1',name:'Patate al forno con cipolla', desc:'Patate al forno con cipolla caramellata', price:4, featured:false},
+    {id:'co2',name:'Insalata mista',              desc:'Insalata mista fresca del giorno',        price:4, featured:false},
+  ],
+  dessert:[
+    {id:'de1',name:'Tiramisù',               desc:'Ricetta classica, preparazione del giorno',                price:7, featured:true},
+    {id:'de2',name:'Cheesecake',             desc:'Al cioccolato, al pistacchio o ai frutti di bosco',        price:7, featured:false},
+    {id:'de3',name:'Tortino dal cuore caldo',desc:'Con gelato alla vaniglia',                                 price:7, featured:true},
+    {id:'de4',name:'Pannacotta',             desc:'Al cioccolato, al pistacchio o ai frutti di bosco',        price:5, featured:false},
+    {id:'de5',name:'Parfait alle mandorle',  desc:'Semifreddo alle mandorle siciliane',                       price:7, featured:false},
+  ],
+  mocktails:[
+    {id:'m1',name:'Gin tonic zero alcol',  desc:'Gin analcolico, tonica e lime',                price:6, featured:false},
+    {id:'m2',name:'Gin sour zero alcol',   desc:'Gin analcolico, limone, albume',               price:6, featured:false},
+    {id:'m3',name:'Gin lemon zero alcol',  desc:'Gin analcolico, limonata artigianale',         price:6, featured:false},
+    {id:'m4',name:'Gloria',                desc:'Frutta fresca, menta e soda',                  price:6, featured:false},
+    {id:'m5',name:'Argento',               desc:'Agrumi siciliani e tonica',                    price:6, featured:false},
+    {id:'m6',name:'Strawberry sour',       desc:'Fragola, limone, albume',                      price:5, featured:true},
+    {id:'m7',name:'Exotic',                desc:'Maracuja, ananas, lime',                       price:5, featured:false},
+    {id:'m8',name:'Silver',                desc:'Mela verde, zenzero, soda',                    price:6, featured:false},
+    {id:'m9',name:'Plata',                 desc:'Agrumi misti, sciroppo di agave',              price:7, featured:false},
+    {id:'m10',name:'Palomba',              desc:'Pompelmo, miele, soda',                        price:5, featured:false},
+    {id:'m11',name:'Chinottel',            desc:'Chinotto siciliano, limone, menta',            price:5, featured:false},
+  ],
+  drinks:[
+    {id:'d1',name:'Birra Messina',          desc:'Bottiglia 33cl',                              price:4,   featured:false},
+    {id:'d2',name:'Birra Tennent\'s',       desc:'Bottiglia 33cl',                              price:4,   featured:false},
+    {id:'d3',name:'Birra Guinness',         desc:'Bottiglia',                                   price:5,   featured:false},
+    {id:'d4',name:'Birra alla spina',       desc:'Pilsner, Weiss o Sixtus · 0.30L',            price:4,   featured:false},
+    {id:'d5',name:'Coca-Cola',              desc:'33cl',                                        price:2.5, featured:false},
+    {id:'d6',name:'Schweppes tonica',       desc:'',                                            price:2.5, featured:false},
+    {id:'d7',name:'Gazzosa / Aranciata bio Tomarchio', desc:'Produzione locale siciliana',      price:3,   featured:false},
+    {id:'d8',name:'Chinotto',               desc:'',                                            price:3,   featured:false},
+    {id:'d9',name:'Acqua naturale',         desc:'0.5L',                                        price:2,   featured:false},
+    {id:'d10',name:'Acqua frizzante',       desc:'0.5L',                                        price:2,   featured:false},
+    {id:'d11',name:'Fever-tree',            desc:'Indian tonic o Mediterranean',                price:3,   featured:false},
+    {id:'d12',name:'Ginger beer / ale',     desc:'',                                            price:3,   featured:false},
+  ],
+};
+
+let menu = (() => { try { return JSON.parse(localStorage.getItem('deca_menu')) || structuredClone(DEF); } catch { return structuredClone(DEF); } })();
+
+/* ── I18N ────────────────────────────────── */
+const TRANS = {
+  it: {
+    nav_chi:'Chi Siamo',nav_menu:'Menu',nav_rec:'Recensioni',nav_con:'Contatti',nav_prenota:'Prenota',
+    hero_pill:'Palermo &nbsp;·&nbsp; Piazza Giovanni Meli &nbsp;·&nbsp; dal 2018',
+    hero_tag:'Cucina di mare, cocktail che raccontano la Sicilia<br>e una piazza dove il tempo si ferma volentieri.',
+    hero_prenota:'Prenota un Tavolo',hero_menu:'Scopri il Menu',
+    stat_rec:'416 recensioni',stat_pp:'a persona',stat_days:'tutti i giorni',
+    chi_label:'La nostra storia',chi_h2:'Un posto dove <em>stare bene</em>',
+    chi_p1:'Deca Bistrot nasce da un\'idea semplice: un posto dove mangiare bene senza fare i seri, bere cocktail che sappiano di Sicilia, e restare a tavola fino a tardi.',
+    chi_p2:'Siamo a <strong style="color:var(--gold)">Piazza Giovanni Meli</strong>, nel cuore antico di Palermo. La cucina è quella del mare, degli orti siciliani, del mercato del mattino.',
+    chi_p3:'La sera diventa cocktail bar: il bar team mescola agrumi IGP, amari di territorio e vini autoctoni. Nessuna pretesa, solo buone cose.',
+    chi_pill1:'Cucina di mare',chi_pill2:'Cocktail bar',chi_pill3:'Happy hour 18–20',chi_pill4:'Aperto fino alle 02:00',
+    feat1_title:'Cucina di mare',feat1_desc:'Pescato fresco ogni mattina. Polpo, seppie, gamberi di Mazara, frittura di paranza — la Sicilia autentica nel piatto.',
+    feat2_title:'Cocktail bar',feat2_desc:'Dal tramonto il bar team crea signature cocktail con agrumi IGP, amari locali e vini autoctoni. Ogni sorso racconta l\'isola.',
+    feat3_title:'Happy hour 18–20',feat3_desc:'Ogni giorno dalle 18 alle 20. Aperitivi, stuzzicherie siciliane e cocktail a prezzo speciale.',
+    menu_label:'Cosa mangiamo',menu_h2:'Il <em>Menu</em>',
+    all_label:'Trasparenza a tavola',all_h2:'Informazioni sugli <em>Allergeni</em>',
+    all_intro:'In conformità al Reg. UE 1169/2011, i nostri piatti possono contenere i seguenti allergeni. Per informazioni dettagliate su un piatto specifico, chiedi al nostro staff.',
+    all_note:'<strong>⚠ Avviso:</strong> I nostri piatti vengono preparati in cucine dove si utilizzano tutti gli allergeni elencati. Non possiamo garantire l\'assenza totale di contaminazione crociata. Per qualsiasi esigenza alimentare o allergia grave, <strong>informate sempre il personale prima di ordinare.</strong>',
+    exp1_title:'Cucina di mare',exp1_desc:'Pescato fresco ogni mattina. Il menu cambia, il sapore no.',
+    exp2_title:'Cocktail bar',exp2_desc:'Agrumi IGP, amari di Sicilia, vini autoctoni. Ogni drink è un posto.',
+    exp3_title:'L\'atmosfera',exp3_desc:'Pranzo tranquillo, cena vivace, notte lunga. Sempre a Piazza Meli.',
+    rec_label:'Dicono di noi',rec_h2:'Le <em>recensioni</em>',rec_sub:'su 416 recensioni Google',
+    rec_cta:'Lascia una recensione su Google',
+    recf_title:'Raccontaci la tua esperienza',
+    recf_desc:'Hai cenato da noi? Lascia una valutazione — ci aiuta a migliorare e a far sapere agli altri cosa aspettarsi.',
+    recf_ph_nome:'Il tuo nome (opzionale)',recf_ph_testo:'Descrivi la tua esperienza… (opzionale)',
+    recf_submit:'Invia la tua recensione',recf_thanks:'Grazie per la tua recensione! 🙏',recf_thanks2:'La tua opinione è preziosa per noi.',
+    pre_label:'Riserva il tuo posto',pre_h2:'Prenota<br>un <em>Tavolo</em>',pre_sub:'Tutti i giorni dalle 11:30 alle 02:00. Scegli come vuoi.',
+    pre_quandoo:'Prenota su Quandoo',pre_quandoo_sub:'Conferma immediata online',
+    pre_tel:'Chiama direttamente',pre_wa_title:'O scrivici su WhatsApp',
+    pre_nome:'Nome *',pre_phone:'Telefono *',pre_date:'Data *',pre_time:'Ora *',pre_pax:'Quante persone? *',
+    pre_select:'Seleziona',pre_lunch:'Pranzo',pre_dinner:'Cena',pre_wa_btn:'Invia su WhatsApp',
+    con_label:'Trovaci',con_h2:'Dove <em>siamo</em>',
+    con_addr:'Indirizzo',con_phone:'Telefono',con_hours:'Orari',con_email:'Email',con_everyday:'Ogni giorno',
+    mod_title:'Come vuoi prenotare?',mod_sub:'Scegli il modo più comodo per riservare il tuo tavolo da Deca Bistrot.',
+    mod_online:'Prenota Online',mod_online_sub:'Conferma immediata su Quandoo',mod_or:'oppure',
+    mod_wa:'Scrivici su WhatsApp',mod_wa_sub:'Risposta rapida · +39 327 897 6765',
+    mod_form:'Compila il modulo',mod_form_sub:'Vai alla sezione prenotazioni',
+  },
+  en: {
+    nav_chi:'About Us',nav_menu:'Menu',nav_rec:'Reviews',nav_con:'Contact',nav_prenota:'Book',
+    hero_pill:'Palermo &nbsp;·&nbsp; Piazza Giovanni Meli &nbsp;·&nbsp; since 2018',
+    hero_tag:'Seafood cuisine, cocktails that tell the story of Sicily<br>and a square where time happily stands still.',
+    hero_prenota:'Book a Table',hero_menu:'View Menu',
+    stat_rec:'416 reviews',stat_pp:'per person',stat_days:'every day',
+    chi_label:'Our story',chi_h2:'A place to <em>feel good</em>',
+    chi_p1:'Deca Bistrot was born from a simple idea: a place to eat well without pretension, drink cocktails that taste of Sicily, and linger at the table until late.',
+    chi_p2:'We are at <strong style="color:var(--gold)">Piazza Giovanni Meli</strong>, in the ancient heart of Palermo. The cuisine is that of the sea, Sicilian gardens, and the morning market.',
+    chi_p3:'In the evening it becomes a cocktail bar: the bar team blends IGP citrus, local bitters and native wines. No pretense, just good things.',
+    chi_pill1:'Seafood cuisine',chi_pill2:'Cocktail bar',chi_pill3:'Happy hour 18–20',chi_pill4:'Open until 02:00',
+    feat1_title:'Seafood cuisine',feat1_desc:'Fresh catch every morning. Octopus, cuttlefish, Mazara prawns, mixed fry — authentic Sicily on the plate.',
+    feat2_title:'Cocktail bar',feat2_desc:'From sunset the bar team crafts signature cocktails with IGP citrus, local amari and native wines. Every sip tells the island\'s story.',
+    feat3_title:'Happy hour 18–20',feat3_desc:'Every day from 6 to 8 pm. Aperitifs, Sicilian snacks and cocktails at special prices.',
+    menu_label:'What we eat',menu_h2:'The <em>Menu</em>',
+    all_label:'Transparency at the table',all_h2:'<em>Allergen</em> Information',
+    all_intro:'In accordance with EU Regulation 1169/2011, our dishes may contain the following allergens. For detailed information about a specific dish, please ask our staff.',
+    all_note:'<strong>⚠ Warning:</strong> Our dishes are prepared in kitchens where all listed allergens are used. We cannot guarantee the complete absence of cross-contamination. For any dietary needs or severe allergies, <strong>always inform the staff before ordering.</strong>',
+    exp1_title:'Seafood cuisine',exp1_desc:'Fresh catch every morning. The menu changes, the flavour doesn\'t.',
+    exp2_title:'Cocktail bar',exp2_desc:'IGP citrus, Sicilian amari, native wines. Every drink is a place.',
+    exp3_title:'The atmosphere',exp3_desc:'Quiet lunch, lively dinner, long night. Always at Piazza Meli.',
+    rec_label:'What people say',rec_h2:'The <em>reviews</em>',rec_sub:'based on 416 Google reviews',
+    rec_cta:'Leave a review on Google',
+    recf_title:'Tell us about your experience',
+    recf_desc:'Dined with us? Leave a rating — it helps us improve and lets others know what to expect.',
+    recf_ph_nome:'Your name (optional)',recf_ph_testo:'Describe your experience… (optional)',
+    recf_submit:'Submit your review',recf_thanks:'Thank you for your review! 🙏',recf_thanks2:'Your opinion means a lot to us.',
+    pre_label:'Reserve your spot',pre_h2:'Book<br>a <em>Table</em>',pre_sub:'Open every day 11:30 – 02:00. Choose your way.',
+    pre_quandoo:'Book on Quandoo',pre_quandoo_sub:'Instant confirmation online',
+    pre_tel:'Call directly',pre_wa_title:'Or message us on WhatsApp',
+    pre_nome:'Name *',pre_phone:'Phone *',pre_date:'Date *',pre_time:'Time *',pre_pax:'How many people? *',
+    pre_select:'Select',pre_lunch:'Lunch',pre_dinner:'Dinner',pre_wa_btn:'Send on WhatsApp',
+    con_label:'Find us',con_h2:'Where <em>we are</em>',
+    con_addr:'Address',con_phone:'Phone',con_hours:'Hours',con_email:'Email',con_everyday:'Every day',
+    mod_title:'How would you like to book?',mod_sub:'Choose the most convenient way to reserve your table at Deca Bistrot.',
+    mod_online:'Book Online',mod_online_sub:'Instant confirmation on Quandoo',mod_or:'or',
+    mod_wa:'Message us on WhatsApp',mod_wa_sub:'Quick reply · +39 327 897 6765',
+    mod_form:'Fill the form',mod_form_sub:'Go to the reservations section',
+  }
+};
+
+const MENU_EN = {
+  a1:{name:'Octopus',desc:'Double-cooked octopus on potato and cardamom cake'},
+  a2:{name:'Bruschetta trio',desc:'Prawn tartare with pear and almonds, scampi tartare on lemon cream cheese, salmon tartare on yoghurt'},
+  a3:{name:'Arancini bites',desc:'With swordfish, cherry tomato and mint on aubergine sauce'},
+  a4:{name:'Watermelon tartare',desc:'Cherry tomatoes, mozzarella and pistachio pesto'},
+  a5:{name:'Our-style couscous',desc:'With prawns, mussels, clams and squid'},
+  a6:{name:'Charcuterie & cheese board',desc:'Selection of cured meats and cheeses with jam of the day'},
+  a7:{name:'Caponata',desc:'Classic Sicilian aubergine caponata'},
+  a8:{name:'Aperitivo plate',desc:'Mini rolls with chickpea fritters and croquettes, mixed cuts, milk croquettes, chicken bites, vegetables and mini mozzarellas'},
+  p1:{name:'Spaghetti clams & mussels',desc:'With asparagus and amaretti crumble'},
+  p2:{name:'Busiate with swordfish & prawns',desc:'Swordfish, prawns, cherry tomatoes, parsley powder and pistachio pesto'},
+  p3:{name:'Deca paccheri',desc:'Guanciale, sausage, burrata, pistachio pesto and cherry tomato'},
+  p4:{name:'Spaghetti aglio e olio',desc:'With red prawn tartare'},
+  p5:{name:'Paccheri alla Norma',desc:'Tomato sauce, fried aubergine and salted ricotta'},
+  p6:{name:'Nerano pasta',desc:'Pasta with fried courgettes and provolone fondue'},
+  p7:{name:'Carbonara',desc:'Classic carbonara pasta'},
+  s1:{name:'Meagre',desc:'With aioli sauce and pineapple'},
+  s2:{name:'Angus beef tagliata',desc:'With rocket, parmesan and tomato'},
+  s3:{name:'Fried squid',desc:'Crispy fried calamari'},
+  s4:{name:'Salmon',desc:'With mustard sauce, balsamic vinegar and honey'},
+  s5:{name:'Sea bream',desc:'With pea sauce, lemon cream cheese and squid ink drops'},
+  co1:{name:'Roasted potatoes with onion',desc:'Oven-baked potatoes with caramelised onion'},
+  co2:{name:'Mixed salad',desc:'Fresh mixed salad of the day'},
+  de1:{name:'Tiramisù',desc:'Classic recipe, made fresh daily'},
+  de2:{name:'Cheesecake',desc:'Chocolate, pistachio or mixed berry'},
+  de3:{name:'Molten chocolate cake',desc:'With vanilla ice cream'},
+  de4:{name:'Panna cotta',desc:'Chocolate, pistachio or mixed berry'},
+  de5:{name:'Almond parfait',desc:'Semifreddo with Sicilian almonds'},
+  m1:{name:'Non-alcoholic gin tonic',desc:'Non-alcoholic gin, tonic and lime'},
+  m2:{name:'Non-alcoholic gin sour',desc:'Non-alcoholic gin, lemon, egg white'},
+  m3:{name:'Non-alcoholic gin lemon',desc:'Non-alcoholic gin, artisan lemonade'},
+  m4:{name:'Gloria',desc:'Fresh fruit, mint and soda'},
+  m5:{name:'Argento',desc:'Sicilian citrus and tonic'},
+  m6:{name:'Strawberry sour',desc:'Strawberry, lemon, egg white'},
+  m7:{name:'Exotic',desc:'Passion fruit, pineapple, lime'},
+  m8:{name:'Silver',desc:'Green apple, ginger, soda'},
+  m9:{name:'Plata',desc:'Mixed citrus, agave syrup'},
+  m10:{name:'Palomba',desc:'Grapefruit, honey, soda'},
+  m11:{name:'Chinottel',desc:'Sicilian chinotto, lemon, mint'},
+  c1:{name:"Professor's Negroni",desc:'House signature cocktail'},
+  c2:{name:'Pornstar Martini',desc:'Vodka, passion fruit, Passoa, lime and prosecco'},
+  c3:{name:'Old Fashioned',desc:'Whiskey, angostura, cane sugar'},
+  c4:{name:'Whiskey Sour',desc:'Whiskey, lemon juice, egg white, angostura'},
+  c5:{name:'Aperol Spritz',desc:'Aperol, prosecco, soda and orange'},
+  c6:{name:'Hugo Spritz',desc:'Prosecco, elderflower syrup, mint, soda and lime'},
+  c7:{name:'Limoncello Spritz',desc:'Limoncello, prosecco and soda'},
+  c8:{name:'Cuban Mojito',desc:'White rum, lime, mint, sugar and soda'},
+  c9:{name:'Campari Negroni',desc:'Gin, Campari, red vermouth'},
+  c10:{name:'Piña Colada',desc:'Rum, coconut milk, pineapple'},
+  c11:{name:'Daiquiri',desc:'Rum, lime juice, sugar'},
+  c12:{name:'Margarita',desc:'Tequila, Cointreau, lime'},
+  v1:{name:'White wine by the glass',desc:'Daily selection: Grillo, Catarratto, Etna Bianco'},
+  v2:{name:'Red wine by the glass',desc:"Nero d'Avola, Perricone or Etna Rosso"},
+  v3:{name:'Prosecco by the glass',desc:'Italian sparkling wine'},
+  v4:{name:'Champagne by the glass',desc:'Premium selection (min. 2 glasses)'},
+  v5:{name:'White wines (bottle)',desc:'Grillo, Catarratto, Etna Bianco, Sauvignon Blanc and more'},
+  v6:{name:'Red wines (bottle)',desc:"Nero d'Avola, Etna Rosso, Barbera and more"},
+  v7:{name:'Sparkling wines (bottle)',desc:'Prosecco, Franciacorta, Champagne, Etna Metodo Classico'},
+  d1:{name:'Messina Beer',desc:'Bottle 33cl'},
+  d2:{name:"Tennent's Beer",desc:'Bottle 33cl'},
+  d3:{name:'Guinness',desc:'Bottle'},
+  d4:{name:'Draft beer',desc:'Pilsner, Weiss or Sixtus · 0.30L'},
+  d5:{name:'Coca-Cola',desc:'33cl'},
+  d6:{name:'Schweppes tonic',desc:''},
+  d7:{name:'Tomarchio bio lemonade / orange soda',desc:'Local Sicilian production'},
+  d8:{name:'Chinotto',desc:''},
+  d9:{name:'Still water',desc:'0.5L'},
+  d10:{name:'Sparkling water',desc:'0.5L'},
+  d11:{name:'Fever-tree',desc:'Indian tonic or Mediterranean'},
+  d12:{name:'Ginger beer / ale',desc:''},
+};
+
+let currentLang = localStorage.getItem('deca_lang') || 'it';
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('deca_lang', lang);
+  const t = TRANS[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => { const k=el.dataset.i18n; if(t[k]!==undefined) el.innerHTML=t[k]; });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { const k=el.dataset.i18nPh; if(t[k]!==undefined) el.placeholder=t[k]; });
+  document.querySelectorAll('[data-i18n-grp]').forEach(el => { const k=el.dataset.i18nGrp; if(t[k]!==undefined) el.label=t[k]; });
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang===lang));
+  document.documentElement.lang = lang;
+  renderMenu();
+}
+
+document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+const CAT_LABELS = {
+  it:{ antipasti:'Antipasti', primi:'Primi Piatti', secondi:'Secondi', contorni:'Contorni', dessert:'Dessert', cocktails:'Cocktails', mocktails:'Mocktails', vini:'Vini', drinks:'Drinks & Birre' },
+  en:{ antipasti:'Starters',  primi:'Pasta & Mains', secondi:'Main Courses', contorni:'Sides', dessert:'Desserts', cocktails:'Cocktails', mocktails:'Mocktails', vini:'Wines', drinks:'Soft Drinks & Beer' },
+};
+const CAT_SUBS = {
+  it:{ antipasti:'Per cominciare', primi:'Pasta e risotti', secondi:'Pesce del giorno', contorni:'Accompagnamenti', dessert:'Per finire in dolcezza', cocktails:'Bar di territorio', mocktails:'Zero alcol', vini:'Cantina siciliana', drinks:'Soft & birre' },
+  en:{ antipasti:'To start',       primi:'Pasta & rice',   secondi:'Fish of the day',   contorni:'Side dishes',    dessert:'Something sweet',           cocktails:'Our bar',          mocktails:'Alcohol-free',  vini:'Sicilian cellar',   drinks:'Soft & beers' },
+};
+
+function renderMenu(active) {
+  const tabs = ['antipasti','primi','secondi','cocktails','vini','drinks'];
+  const cur  = active || document.querySelector('.tab-btn.active')?.dataset.tab || 'antipasti';
+  const lang = (typeof currentLang !== 'undefined') ? currentLang : 'it';
+  const labels = CAT_LABELS[lang] || CAT_LABELS.it;
+  const subs   = CAT_SUBS[lang]   || CAT_SUBS.it;
+  const badge  = lang === 'en' ? 'Recommended' : 'Consigliato';
+  const empty  = lang === 'en' ? 'No items in this category.' : 'Nessun piatto in questa categoria.';
+  document.getElementById('menu-out').innerHTML = tabs.map(t => `
+    <div class="tab-content${t===cur?' active':''}" id="tab-${t}">
+      <div class="mc-cat-hd">
+        <div class="mc-cat-label">${esc(subs[t]||'')}</div>
+        <div class="mc-cat-title">${esc(labels[t]||t)}</div>
+      </div>
+      <div class="menu-grid">
+        ${(menu[t]||[]).map(i=>{ const en=MENU_EN[i.id]||{}; const nm=lang==='en'&&en.name?en.name:i.name; const dc=lang==='en'&&en.desc!==undefined?en.desc:i.desc; return `
+          <div class="mc">
+            <div class="mc-top">
+              <span class="mc-name">${esc(nm)}${i.featured?`<span class="mc-badge"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 5.18L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> ${badge}</span>`:''}</span>
+              <span class="mc-price">€${i.price}</span>
+            </div>
+            <p class="mc-desc">${esc(dc)}</p>
+            ${i.note?`<span class="mc-note">${esc(i.note)}</span>`:''}
+          </div>`; }).join('')}
+        ${!(menu[t]||[]).length?`<p style="color:#b08050;padding:40px;text-align:center;font-style:italic;">${empty}</p>`:''}
+      </div>
+    </div>`).join('');
+}
+renderMenu();
+
+/* ── TABS ──────────────────────────────── */
+document.querySelectorAll('.tab-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-selected','false');});
+    b.classList.add('active'); b.setAttribute('aria-selected','true');
+    renderMenu(b.dataset.tab);
+  });
+});
+
+/* ── NAVBAR ────────────────────────────── */
+window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('stuck', scrollY>55), {passive:true});
+
+/* ── HERO PHOTO – placeholder attivo, aggiungere foto reale ── */
+
+/* ── MOBILE MENU ───────────────────────── */
+const mob = document.getElementById('mob');
+const burger = document.getElementById('burger');
+const mobX = document.getElementById('mob-x');
+const openM  = () => { mob.classList.add('open');    document.body.style.overflow='hidden'; burger.setAttribute('aria-expanded','true'); };
+const closeM = () => { mob.classList.remove('open'); document.body.style.overflow=''; burger.setAttribute('aria-expanded','false'); };
+burger.addEventListener('click', openM);
+mobX.addEventListener('click', closeM);
+document.querySelectorAll('.mob-l').forEach(l=>l.addEventListener('click', closeM));
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeM(); closeAdmin(); } });
+
+/* ── SCROLL ANIMATIONS ─────────────────── */
+const io = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.1});
+document.querySelectorAll('.rise').forEach(el=>io.observe(el));
+
+/* ── WHATSAPP FORM ─────────────────────── */
+document.getElementById('f-data').min = new Date().toISOString().split('T')[0];
+document.getElementById('pre-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const nome=document.getElementById('f-nome').value.trim();
+  const tel=document.getElementById('f-tel').value.trim();
+  const data=document.getElementById('f-data').value;
+  const ora=document.getElementById('f-ora').value;
+  const pax=document.getElementById('f-pax').value;
+  if(!nome||!tel||!data||!ora||!pax){alert('Compila tutti i campi obbligatori.');return;}
+  const dataIt=new Date(data+'T12:00:00').toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  const msg=`Ciao Deca Bistrot! 👋\nVorrei prenotare un tavolo:\n\n👤 ${nome}\n📅 ${dataIt}\n🕐 ${ora}\n👥 ${pax}\n📞 ${tel}\n\nGrazie!`;
+  window.open(`https://wa.me/393278976765?text=${encodeURIComponent(msg)}`,'_blank','noopener');
+});
+
+/* ── ADMIN ─────────────────────────────── */
+const panel = document.getElementById('admin-panel');
+const aKey  = document.getElementById('a-key');
+const aCmd  = document.getElementById('a-cmd');
+const aRun  = document.getElementById('a-run');
+const aFb   = document.getElementById('a-fb');
+
+aKey.value = localStorage.getItem('deca_apikey')||'';
+const openAdmin  = ()=>{ panel.classList.add('open'); document.body.style.overflow='hidden'; setTimeout(initQR,80); };
+const closeAdmin = ()=>{ panel.classList.remove('open'); document.body.style.overflow=''; window.location.hash=''; };
+
+document.getElementById('admin-trig').addEventListener('click',e=>{e.preventDefault();openAdmin();});
+document.getElementById('admin-x').addEventListener('click', closeAdmin);
+panel.addEventListener('click', e=>{ if(e.target===panel) closeAdmin(); });
+if(location.hash==='#admin') openAdmin();
+
+document.getElementById('a-eye').addEventListener('click',()=>{ aKey.type=aKey.type==='password'?'text':'password'; });
+aKey.addEventListener('change',()=>localStorage.setItem('deca_apikey',aKey.value.trim()));
+document.querySelectorAll('.ex[data-ex]').forEach(b=>b.addEventListener('click',()=>{aCmd.value=b.dataset.ex;aCmd.focus();}));
+
+function fb(t,m){aFb.className=`a-fb ${t}`;aFb.textContent=m;}
+
+aRun.addEventListener('click', async()=>{
+  const key=aKey.value.trim(), cmd=aCmd.value.trim();
+  if(!key){fb('err','⚠ Inserisci la tua API Key Anthropic.');return;}
+  if(!cmd){fb('err','⚠ Scrivi cosa vuoi modificare.');return;}
+  aRun.disabled=true; aRun.textContent='Elaborando…';
+  fb('busy','⏳ Claude sta leggendo il menu…');
+  const summary=Object.entries(menu).map(([c,it])=>`${c}: ${it.map(i=>`${i.name}(€${i.price})`).join(', ')}`).join('\n');
+  try {
+    const r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'x-api-key':key,'anthropic-version':'2023-06-01','content-type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6', max_tokens:512,
+        system:`Gestisci il menu di Deca Bistrot. Rispondi SOLO con JSON valido (nessun testo extra).
+Formato: {"action":"add"|"remove"|"update","category":"antipasti"|"primi"|"secondi"|"cocktails"|"vini"|"drinks","item":{...}}
+add→id univoco,name,desc,price(numero),featured(bool),note(opz). remove→solo name. update→name+campi da cambiare.
+Menu attuale:\n${summary}`,
+        messages:[{role:'user',content:cmd}]
+      })
+    });
+    if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e?.error?.message||`HTTP ${r.status}`);}
+    const d=await r.json();
+    const raw=(d.content?.[0]?.text||'').trim();
+    let p; try{const m=raw.match(/\{[\s\S]*\}/);p=JSON.parse(m?m[0]:raw);}catch{throw new Error('Risposta non valida. Riprova con istruzione più precisa.');}
+    applyChange(p);
+    localStorage.setItem('deca_menu',JSON.stringify(menu));
+    renderMenu(); aCmd.value='';
+    fb('ok',`✓ Fatto! ${descChange(p)}`);
+  } catch(e){ fb('err',`✗ ${e.message}`); }
+  finally { aRun.disabled=false; aRun.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Aggiorna con Claude'; }
+});
+
+function applyChange({action,category,item}){
+  if(!menu[category]||!item) return;
+  if(action==='add') menu[category].push(item);
+  else if(action==='remove') menu[category]=menu[category].filter(i=>i.name.toLowerCase()!==(item.name||'').toLowerCase());
+  else if(action==='update'){const idx=menu[category].findIndex(i=>i.name.toLowerCase()===(item.name||'').toLowerCase());if(idx!==-1)menu[category][idx]={...menu[category][idx],...item};}
+}
+function descChange({action,category,item}){
+  return `${({add:'Aggiunto',remove:'Rimosso',update:'Aggiornato'})[action]||action} "${item?.name}" in ${category}.`;
+}
+/* ── FORM RECENSIONI ───────────────────── */
+document.getElementById('rec-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const stelle = document.querySelector('input[name="stelle"]:checked')?.value;
+  if(!stelle){ alert('Seleziona almeno una valutazione con le stelle.'); return; }
+  // Salva in localStorage come lista recensioni
+  const reviews = JSON.parse(localStorage.getItem('deca_reviews')||'[]');
+  reviews.unshift({
+    nome: document.getElementById('rec-nome').value.trim() || 'Ospite anonimo',
+    testo: document.getElementById('rec-testo').value.trim(),
+    stelle: parseInt(stelle),
+    data: new Date().toLocaleDateString('it-IT',{day:'numeric',month:'long',year:'numeric'})
+  });
+  localStorage.setItem('deca_reviews', JSON.stringify(reviews));
+  document.getElementById('rec-form').style.display = 'none';
+  document.getElementById('rec-success').style.display = 'block';
+});
+
+/* ── MODALE PRENOTAZIONE ───────────────── */
+const prenotaModal = document.getElementById('prenota-modal');
+const openPrenota  = e => { if(e) e.preventDefault(); prenotaModal.classList.add('open'); document.body.style.overflow='hidden'; };
+const closePrenota = ()=> { prenotaModal.classList.remove('open'); document.body.style.overflow=''; };
+
+document.querySelectorAll('.prenota-trig').forEach(el => el.addEventListener('click', openPrenota));
+document.getElementById('prenota-x').addEventListener('click', closePrenota);
+prenotaModal.addEventListener('click', e => { if(e.target === prenotaModal) closePrenota(); });
+document.getElementById('prenota-form-link').addEventListener('click', ()=> { closePrenota(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape') closePrenota(); });
+
+document.getElementById('a-reset').addEventListener('click',()=>{
+  if(!confirm('Ripristinare il menu originale?')) return;
+  menu=structuredClone(DEF); localStorage.removeItem('deca_menu'); renderMenu(); fb('ok','✓ Menu ripristinato.');
+});
+document.getElementById('a-export').addEventListener('click',()=>{
+  const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([JSON.stringify(menu,null,2)],{type:'application/json'})),download:'deca-menu.json'});
+  a.click();
+});
+
+/* ── QR CODE ───────────────────────────── */
+let qrInstance = null;
+
+function getMenuUrl(){
+  return location.href.replace(/[#?].*$/, '').replace(/\/?$/, '/') + '#menu';
+}
+
+function initQR(){
+  const el = document.getElementById('qr-canvas');
+  const url = getMenuUrl();
+  document.getElementById('qr-url-label').textContent = url;
+  el.innerHTML = '';
+  if(typeof QRCode === 'undefined') return; // library not loaded yet
+  qrInstance = new QRCode(el, {
+    text: url,
+    width: 200,
+    height: 200,
+    colorDark: '#1c1208',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H,
+  });
+}
+
+
+document.getElementById('a-qr-dl').addEventListener('click', ()=>{
+  const img = document.querySelector('#qr-canvas img');
+  const canvas = document.querySelector('#qr-canvas canvas');
+  let src = '';
+  if(canvas){ src = canvas.toDataURL('image/png'); }
+  else if(img){ src = img.src; }
+  if(!src){ alert('QR code non ancora generato. Riapri il pannello.'); return; }
+  const a = Object.assign(document.createElement('a'),{ href: src, download: 'deca-bistrot-menu-qr.png' });
+  a.click();
+});
+
+document.getElementById('a-qr-open').addEventListener('click', ()=>{
+  window.open(getMenuUrl(), '_blank', 'noopener');
+});
+
+/* ── INIT LANG ──────────────────────────── */
+setLang(currentLang);
+</script>
+</body>
+</html>
